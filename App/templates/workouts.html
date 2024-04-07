@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}App Users{% endblock %}
+{% block page %}App Users{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+    <p> the workout html is working</p>
+
+    <div class="row">
+        <form class="col s12" method="POST" action="/workouts">
+          
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="workout name" name="workout_name" type="text" >
+              <label for="workout_name">workout_name</label>
+            </div>
+            <div class="input-field col s6">
+                <input placeholder="workout_desc" name="workout_desc" type="text" >
+                <label for="workout_desc">workout_desc</label>
+              </div>
+          </div>
+        
+          <div class="row">
+            <div class="input-field col s12">
+              <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
+            </div>
+          </div> 
+  
+        </form>
+      </div>
+
+      {%for workout in workouts%}
+            <P>It works this amount of times</P>
+      {%endfor%}
+{% endblock%}
