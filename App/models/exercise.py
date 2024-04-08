@@ -1,6 +1,6 @@
 from App.database import db
 
-class Workout(db.Model):
+class exercise(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(5000), nullable=False)
@@ -10,4 +10,4 @@ class Workout(db.Model):
         self.description = description
 
     def __repr__(self):
-        return ("Workout: {{self.name}}")
+        return ("exercise: {{self.name}}")

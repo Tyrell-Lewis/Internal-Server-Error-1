@@ -1,2 +1,2 @@
 from .user import *
-from .workout import*
+from .exercise import*
