@@ -15,8 +15,8 @@ def create_exercise(name, description):
     db.session.commit()
     return new_exercise
 
-def get_all_exercises_api():
-    url = 'https://wger.de/api/v2/exercise/?limit=5&offset=0'
+def get_all_exercises_api(limit, start_point):
+    url = f'https://wger.de/api/v2/exercise/?limit={limit}&offset={start_point}'
     #the limit=5 means it only renders the 5 at a time
     #the offset=0 means it starts from the 1st one, which is at 0 like an array list
     # can manipulate the url by using variable for the numbers {{}} or ${} whichever one works for this.

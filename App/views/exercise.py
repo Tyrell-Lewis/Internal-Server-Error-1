@@ -10,7 +10,12 @@ exercise_views = Blueprint('exercise_views', __name__, template_folder='../templ
 @exercise_views.route('/exercises', methods=['GET'])
 def get_exercise_page():
     #exercises = get_all_exercises()
-    exercises = get_all_exercises_api()
+    # start_point = request.form.get('start_point')
+    # limit = request.form.get('limit')
+
+    start_point = 0 #This is starting point for all exercies
+    limit = 100 #This gives the limit of how much exercises to render.
+    exercises = get_all_exercises_api(limit,start_point)
 
     return render_template('exercises.html', exercises=exercises)
 
