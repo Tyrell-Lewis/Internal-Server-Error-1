@@ -14,7 +14,7 @@ def get_exercise_page():
     # limit = request.form.get('limit')
 
     start_point = 0 #This is starting point for all exercies
-    limit = 5 #This gives the limit of how much exercises to render.
+    limit = 20 #This gives the limit of how much exercises to render.
     exercises = get_all_exercises_api(limit,start_point)
     #exercises = get_all_exercises()
 
