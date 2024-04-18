@@ -25,7 +25,22 @@ def get_all_exercises_api(limit, start_point):
     #this works to get api data and works in views and template, but doesnt save data to model and database, finda  way to do this tmr.
     
     response = requests.get(url)
+    # if response.status_code == 200:
+    #     return response.json().get('results', [])
+    # else:
+    #     return None
+
     if response.status_code == 200:
-        return response.json().get('results', [])
+        exercise_data = response.json().get('results', [])
+
+        for exercise_d in exercise_data:
+            name = exercise_d.get('name', '')
+            description = exercise_d.get('description', '')
+
+            n_exercise = exercise(name=name, description=description)
+            db.session.add(n_exercise)
+        db.session.commit()
+        #return exercise_data
+        return get_all_exercises()
     else:
         return None
