@@ -16,7 +16,7 @@ def create_exercise(name, description):
     return new_exercise
 
 def get_all_exercises_api(limit, start_point):
-    url = f'https://wger.de/api/v2/exercise/?limit={limit}&offset={start_point}'
+    url = f'https://wger.de/api/v2/exerciseinfo/?limit={limit}&offset={start_point}'
     #the limit=5 means it only renders the 5 at a time
     #the offset=0 means it starts from the 1st one, which is at 0 like an array list
     # can manipulate the url by using variable for the numbers {{}} or ${} whichever one works for this.
@@ -33,12 +33,20 @@ def get_all_exercises_api(limit, start_point):
     if response.status_code == 200:
         exercise_data = response.json().get('results', [])
 
+
+
         for exercise_d in exercise_data:
             name = exercise_d.get('name', '')
             description = exercise_d.get('description', '')
 
-            n_exercise = exercise(name=name, description=description)
-            db.session.add(n_exercise)
+            existing_exercise = exercise.query.filter_by(name=name).first()
+
+            if existing_exercise:
+                pass
+            else:
+
+                n_exercise = exercise(name=name, description=description)
+                db.session.add(n_exercise)
         db.session.commit()
         #return exercise_data
         return get_all_exercises()

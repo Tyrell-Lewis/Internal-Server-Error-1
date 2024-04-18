@@ -14,8 +14,9 @@ def get_exercise_page():
     # limit = request.form.get('limit')
 
     start_point = 0 #This is starting point for all exercies
-    limit = 100 #This gives the limit of how much exercises to render.
+    limit = 5 #This gives the limit of how much exercises to render.
     exercises = get_all_exercises_api(limit,start_point)
+    #exercises = get_all_exercises()
 
     return render_template('exercises.html', exercises=exercises)
 
@@ -23,4 +24,5 @@ def get_exercise_page():
 def create_exercise_action():
     create_exercise(request.form.get('exercise_name'), request.form.get('exercise_desc') )
     return redirect (url_for('exercise_views.get_exercise_page'))
+    #return redirect (request.referrer)
 
