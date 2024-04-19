@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}Flask MVC App{% endblock %}
+{% block page %}Flask MVC App{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+<main>
+
+    <div class="col s12 m7">
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <form method="POST" action="/login" style="align-items: center;">
+                    <div class="card-content">
+                        <div class="input-field">
+                            <input placeholder="username" value="bob" name="username" type="text" class="validate" required>
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="input-field">
+                            <input placeholder="password"value="bobpass" name="password" type="password" class="validate" required>
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="btn waves-effect waves-light">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+    
+{% endblock %}

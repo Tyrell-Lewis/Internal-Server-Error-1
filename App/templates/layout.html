@@ -13,39 +13,52 @@
 
   </head>
   <body>
-    
-      <nav class="purple">
-          <div class="nav-wrapper">
-              <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
-              <ul id="nav-mobile" class="left">
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/exercises">Exercises</a></li>
-                  <li><a href ="/workouts">Workouts</a></li>
-              </ul>
-              {% if is_authenticated %}
-              <ul id="nav-mobile" class="right">
-                <li><a href="/logout">Logout</a></li>
-              </ul>
-              {% else %}
-              <form class="right navbar-form" method="POST" action="/login" style="display: flex; flex-wrap: nowrap; align-items: center; margin-right: 10px;">
-                  <div class="input-field" style="margin-right: 10px;">
-                      <input placeholder="username" value="bob" name="username" type="text" class="validate" required>
-                      <label for="username">username</label>
-                  </div>
-                  <div class="input-field" style="margin-right: 10px;">
-                      <input placeholder="password"value="bobpass" name="password" type="password" class="validate" required>
-                      <label for="password">Password</label>
-                  </div>
-                  <button type="submit" class="btn waves-effect waves-light">Login</button>
-              </form>
-              {% endif %}
-              
-          </div>
+
+      <nav class="navbar"> 
+        <!-- navbar content here  -->
       </nav>
+
+      <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li>
+          <div class="user-view">
+            <!-- <div class="background">
+              <img src="images/profile.png">
+            </div> -->
+            {% if is_authenticated %}
+              <i class="large material-icons">account_circle</i>
+              <a href="#!"><span class="black-text name">Name</span></a>
+              <a href="/logout" class="waves-effect waves-teal btn-flat">Sign Out</a>   
+            {% else %}
+              <i class="large material-icons">account_circle</i>
+              <!-- <a href="/login"><i class="large material-icons">account_circle</i></a> -->
+              <a href="/login" class="waves-effect waves-teal btn-flat">Sign In</a>              
+            {% endif %}
+          </div>
+        </li>
+        <li><div class="divider"></div></li>
+        {% if is_authenticated %}
+          <li><a class="subheader">Your</a></li>
+          <li><a href="/workouts"><i class="material-icons">directions_run</i>Workouts</a></li>
+          <li><div class="divider"></div></li>
+        {% endif %}
+        <li><a class="subheader">Browse</a></li>
+        <li><a class="waves-effect" href="/exercises"><i class="material-icons">fitness_center</i>Exercises</a></li>
+      </ul>
+      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+
       <style>
+
+          header, main, footer {
+              padding-left: 200px;
+          }
+
+
           .navbar-form label {
               color: white !important;
           }
+          
+          
 
           {% block styles %}
 
