@@ -15,7 +15,9 @@
   <body>
 
       <nav class="navbar"> 
-        <!-- navbar content here  -->
+        <div class="nav-wrapper">
+          <a href="" class="brand-logo center">{% block page %}{% endblock %}</a>
+        </div>
       </nav>
 
       <ul id="slide-out" class="sidenav sidenav-fixed">
@@ -58,7 +60,7 @@
             width: 100%;
           }
 
-          header, main, footer {
+          header, main, footer, nav {
               padding-left: 300px;
           }
 
