@@ -50,14 +50,14 @@
         <div class="col s12">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
-              <span class="card-title">{{exercise.name}}</span>
-              <p>{{exercise.description}}</p>
-              <p>{{exercise.category.name}}</p>
+              <span class="card-title">Exercise Name: {{exercise.name}}</span>
+              <p>Description: {{exercise.description}}</p>
+              <p>Category: {{exercise.category.name}}</p>
               {% if exercise.muscle %}
-                <p>{{exercise.muscle.name}}</p>
+                <p>Muscle group: {{exercise.muscle.name}}</p>
               {% endif %}
               {% if exercise.muscle_2 %}
-                <p>{{exercise.muscle_2.name}}</p>
+                <p>Muscle group: {{exercise.muscle_2.name}}</p>
               {% endif %}
             </div>
             <div class="card-action">
