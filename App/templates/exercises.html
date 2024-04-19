@@ -9,40 +9,19 @@
 
     <div class="row">
       <form class="col s12" method="POST" action="/exercises">
-        
-        <div class="row">
-          <div class="input-field col s6">
-            <input placeholder="exercise name" name="exercise_name" type="text" >
-            <label for="exercise_name">exercise_name</label>
-          </div>
-          <div class="input-field col s6">
-              <input placeholder="exercise_desc" name="exercise_desc" type="text" >
-              <label for="exercise_desc">exercise_desc</label>
-            </div>
+        <div class = "input-field">
+          <input placeholder="Search..." name = "exercise_name" type = "text">
+          <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
         </div>
-
-
-        <!-- code for ui number imput -->
-        <!-- <form class="col" method="GET" action="/exercises">
-          <div class="input-field inline">
-            <input type="number" name="start_point" value="1">
-            <label for="start_point">start_point</label>
-          </div>
-            <input type="submit" class="btn" value="Update">
-
-            <input type="number" name="start_point" value="1">
-            <label for="start_point">start_point</label>
-          </div>
-            <input type="submit" class="btn" value="Update">
-        </form> -->
-      
-        <div class="row">
-          <div class="input-field col s12">
-            <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
-          </div>
-        </div>
-
       </form>
+      <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Filter</a>
+
+      <!-- Dropdown Structure -->
+      <ul id='dropdown1' class='dropdown-content'>
+        {% for category in categories %}
+        <li><a href="">{{category.name}}</a></li>
+        {% endfor %}
+      </ul>
     </div>
     <div class = "grid-container">
       {%for exercise in exercises%}
@@ -93,7 +72,7 @@
               {% endif %}
             </div>
             <div class="card-action">
-              <form method = "POST" action = "/workout/{{exercise.id}}">
+              <form method = "GET" action = "/workouts">
                 <button class = "btn red">Add Exercise</button>
               </form>
             </div>
