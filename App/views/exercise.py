@@ -28,5 +28,8 @@ def get_exercise_page():
     return render_template('exercises.html', exercises=exercises, categories=categories, muscles=muscles, equipment=equipment)
 
 @exercise_views.route('/exercises', methods=['POST'])
-
+def create_exercise_action():
+    create_exercise(145, request.form.get('exercise_name'), request.form.get('exercise_desc'), 'Abs')# put a form method with options to choose from a list of categories
+    return redirect (url_for('exercise_views.get_exercise_page'))
+    #return redirect (request.referrer)
 
