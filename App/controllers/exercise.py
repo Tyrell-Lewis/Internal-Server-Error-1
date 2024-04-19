@@ -1,5 +1,6 @@
 from App.models import exercise
 from App.models import equipment
+from App.models import muscle
 # from App.models import category
 from App.database import db
 from flask import request, jsonify
@@ -56,16 +57,18 @@ def get_all_exercises_api(limit, start_point):
                 category_id = exercise_d.get('category', {}).get('id')
                 
                 muscles = exercise_d.get('muscles', [])
-                muscle_id = [muscle.get('id') for muscle in muscles]
+                muscle_ids = [muscle.get('id') for muscle in muscles]
 
                 muscles2 = exercise_d.get('muscles_secondary', [])
-                muscle_id_2 = [muscle2.get('id') for muscle2 in muscles2]
+                muscle_ids_2 = [muscle2.get('id') for muscle2 in muscles2]
 
-                muscle_id = muscle_id[0] if muscle_id else None
-                muscle_id_2 = muscle_id_2[0] if muscle_id_2 else None
+                # muscle_id = muscle_id[0] if muscle_id else None
+                # muscle_id_2 = muscle_id_2[0] if muscle_id_2 else None
 
                 equipment_data = exercise_d.get('equipment', [])
                 equipment_ids = [equipment.get('id') for equipment in equipment_data]
+
+                
                 
                 #print (equipment_ids)
 
@@ -80,16 +83,30 @@ def get_all_exercises_api(limit, start_point):
                     html_text = description
                     clean_text = remove_html_tags(html_text)
                     
-                    n_exercise = exercise(exercise_api_id=exercise_api_id, name=name, description=clean_text, category_id=category_id, muscle_id=muscle_id, muscle_id_2=muscle_id_2)
+                    n_exercise = exercise(exercise_api_id=exercise_api_id, name=name, description=clean_text, category_id=category_id)#, muscle_id=muscle_id, muscle_id_2=muscle_id_2)
 
                     for equipment_id in equipment_ids:
-                        print (equipment_id)
+                        
                         n_equipment = equipment.query.filter_by(equip_id=equipment_id).first()
-                        #print ("not hello")
+                        
                         if n_equipment:
                             n_exercise.equipment.append(n_equipment)
+                    
+                    for muscle_id in muscle_ids:
+                        
+                        n_muscle = muscle.query.filter_by(musc_id=muscle_id).first()
+                        
+                        if n_muscle:
+                            n_exercise.muscle.append(n_muscle)
 
-                            print("hello")
+                    for muscle_id_2 in muscle_ids_2:
+                        
+                        n_muscle_2 = muscle.query.filter_by(musc_id=muscle_id_2).first()
+                        
+                        if n_muscle_2:
+                            n_exercise.muscle_2.append(n_muscle_2)
+
+                            
                     
                     db.session.add(n_exercise)
         db.session.commit()

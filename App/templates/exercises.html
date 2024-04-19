@@ -54,12 +54,34 @@
               <span class="card-title">Exercise Name: {{exercise.name}}</span>
               <p>Description: {{exercise.description}}</p>
               <p>Category: {{exercise.category.name}}</p>
-              {% if exercise.muscle %}
+              <!--{% if exercise.muscle %}
                 <p>Muscle group: {{exercise.muscle.name}}</p>
               {% endif %}
               {% if exercise.muscle_2 %}
                 <p>Muscle group: {{exercise.muscle_2.name}}</p>
+              {% endif %} -->
+              {% if exercise.muscle %}
+              <p>Primary Muscle group:</p>
+                  <ul>
+                      {% for musc in exercise.muscle %}
+                          <li> {{ musc.name }}</li>
+                      {% endfor %}
+                  </ul>
+              {%else%}
+                <p>Primary muscle group: Not listed!</p>
               {% endif %}
+
+              {% if exercise.muscle_2 %}
+                <p>Secondary Muscle group: </p>
+                  <ul>
+                      {% for musc in exercise.muscle_2 %}
+                          <li>{{ musc.name }}</li>
+                      {% endfor %}
+                  </ul>
+              {%else%}
+                <p>Secondary muscle group: Not listed!</p>
+              {% endif %}
+
               {% if exercise.equipment %}
                   <ul>
                       {% for equip in exercise.equipment %}
