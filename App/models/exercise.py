@@ -1,17 +1,27 @@
 from App.database import db
+from App.models.category import category
 
 class exercise(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    #id = db.Column(db.Integer, primary_key=True)
+    exercise_api_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False, unique=True)
     description = db.Column(db.String(5000), nullable=False)
-    cat_name = db.Column(db.String(120), nullable=False)
+    #cat_name = db.Column(db.String(120), nullable=False)
+    
+    # categories = db.relationship('category', backref=db.backref('exercises', lazy=True))
+    # category_id = db.Column(db.Integer, db.ForeignKey('category.cat_id'), nullable=False)
+    category = db.relationship('category', backref=db.backref('exercise', lazy=True))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.cat_id'))
+    
     
     
 
-    def __init__(self, name, description, cat_name):
+    def __init__(self, exercise_api_id, name, description, category_id):
+        self.exercise_api_id = exercise_api_id
         self.name = name
         self.description = description
-        self.cat_name = cat_name
+        #self.cat_name = cat_name
+        self.category_id = category_id
         
         
 

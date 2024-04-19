@@ -101,7 +101,13 @@
               <div class = "flip-card-inner">
                 <div class = "flip-card-front">
                   <h>{{exercise.name}}</h>
-                  <p>{{exercise.cat_name}} </p>
+                  
+                  
+
+                  
+                    <p>{{exercise.category.name}} </p>
+
+                  
                 </div>
                 <div class = "flip-card-back">
                   <p>{{exercise.description}}</p>
@@ -111,19 +117,6 @@
           </div>
       {%endfor%}
 
-      {%for category in categories%}
-          <div class = "grid-item">
-            <div class = "flip-card">
-              <div class = "flip-card-inner">
-                <div class = "flip-card-front">
-                  <h>{{category.name}}</h>
-                </div>
-                <div class = "flip-card-back">
-                  <p>just testing</p>
-                </div>
-              </div>
-            </div>
-          </div>
-      {%endfor%}
+      
     </div>
 {% endblock%}

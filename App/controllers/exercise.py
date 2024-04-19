@@ -1,4 +1,5 @@
 from App.models import exercise
+# from App.models import category
 from App.database import db
 from flask import request, jsonify
 
@@ -8,6 +9,7 @@ import re
 
 def get_all_exercises():
     return exercise.query.all()
+
 
 
 def remove_html_tags(text):
@@ -21,8 +23,8 @@ def remove_html_tags(text):
     return clean_text
 
 
-def create_exercise(name, description, cat_name):
-    new_exercise= exercise(name=name, description=description, cat_name=cat_name)
+def create_exercise(exercise_api_id, name, description):
+    new_exercise= exercise(exercise_api_id=exercise_api_id, name=name, description=description) #cat_name=cat_name)
     db.session.add(new_exercise)
     db.session.commit()
     return new_exercise
@@ -51,21 +53,27 @@ def get_all_exercises_api(limit, start_point):
             if exercise_d.get('language', {}).get('short_name') == 'en' or exercise_d.get('language', {}).get('id') == 2 or exercise_d.get('language', {}).get('full_name') == 'English':
                 name = exercise_d.get('name', '')
                 description = exercise_d.get('description', '')
-                cat_name = exercise_d.get('category', {}).get('name')
+                #cat_name = exercise_d.get('category', {}).get('name')
+                exercise_api_id = exercise_d.get('id')
+                category_id = exercise_d.get('category', {}).get('id')
 
-                existing_exercise = exercise.query.filter_by(name=name).first()
 
-                if existing_exercise:
+                existing_id_exercise = exercise.query.filter_by(exercise_api_id=exercise_api_id).first()
+                existing_name_exercise = exercise.query.filter_by(name=name).first()
+
+                if existing_id_exercise or existing_name_exercise:
                     pass
                 else:
 
                     html_text = description
                     clean_text = remove_html_tags(html_text)
 
-                    n_exercise = exercise(name=name, description=clean_text, cat_name=cat_name)
+                    n_exercise = exercise(exercise_api_id=exercise_api_id, name=name, description=clean_text, category_id=category_id)
+                    
                     db.session.add(n_exercise)
         db.session.commit()
         #return exercise_data
+        
         return get_all_exercises()
     else:
         return None
