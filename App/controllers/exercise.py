@@ -56,6 +56,20 @@ def get_all_exercises_api(limit, start_point):
                 #cat_name = exercise_d.get('category', {}).get('name')
                 exercise_api_id = exercise_d.get('id')
                 category_id = exercise_d.get('category', {}).get('id')
+                # if exercise_d.get('muscles'):
+                #     muscle_id = [muscle.get('id') for muscle in exercise_d.get('muscles', [])]
+                # else:
+                #     muscle_id = None
+                muscles = exercise_d.get('muscles', [])
+                muscle_id = [muscle.get('id') for muscle in muscles]
+
+                muscles2 = exercise_d.get('muscles_secondary', [])
+                muscle_id_2 = [muscle2.get('id') for muscle2 in muscles2]
+
+                muscle_id = muscle_id[0] if muscle_id else None
+                muscle_id_2 = muscle_id_2[0] if muscle_id_2 else None
+                
+                
 
 
                 existing_id_exercise = exercise.query.filter_by(exercise_api_id=exercise_api_id).first()
@@ -67,8 +81,8 @@ def get_all_exercises_api(limit, start_point):
 
                     html_text = description
                     clean_text = remove_html_tags(html_text)
-
-                    n_exercise = exercise(exercise_api_id=exercise_api_id, name=name, description=clean_text, category_id=category_id)
+                    
+                    n_exercise = exercise(exercise_api_id=exercise_api_id, name=name, description=clean_text, category_id=category_id, muscle_id=muscle_id, muscle_id_2=muscle_id_2)
                     
                     db.session.add(n_exercise)
         db.session.commit()

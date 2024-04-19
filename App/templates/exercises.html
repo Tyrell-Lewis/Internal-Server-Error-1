@@ -106,6 +106,13 @@
 
                   
                     <p>{{exercise.category.name}} </p>
+                    {% if exercise.muscle%}
+                      <p>{{exercise.muscle.name}}</p>
+                    {%endif%}
+
+                    {% if exercise.muscle_2%}
+                      <p>{{exercise.muscle_2.name}}</p>
+                    {%endif%}
 
                   
                 </div>
