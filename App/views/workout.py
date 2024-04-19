@@ -8,6 +8,7 @@ from App.controllers import (getAllWorkouts)
 workout_views = Blueprint('workout_views', __name__, template_folder='../templates')
 
 @workout_views.route('/workouts', methods =['GET'])
+@jwt_required()
 def getWorkoutPage():
     workouts = getAllWorkouts()
     return render_template('workouts.html', workouts = workouts)
