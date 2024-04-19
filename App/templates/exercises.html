@@ -62,9 +62,20 @@
               {% if exercise.muscle_2 %}
                 <p>Muscle group: {{exercise.muscle_2.name}}</p>
               {% endif %}
+              {% if exercise.equipment %}
+                  <ul>
+                      {% for equip in exercise.equipment %}
+                          <li>Equipment: {{ equip.name }}</li>
+                      {% endfor %}
+                  </ul>
+              {%else%}
+                <p>Equipment: none (bodyweight exercise)</p>
+              {% endif %}
             </div>
             <div class="card-action">
-              <a href = "/workouts">Add</a>
+              <form method = "POST" action = "/workout/{{exercise.id}}">
+                <button class = "btn red">Add Exercise</button>
+              </form>
             </div>
           </div>
         </div>

@@ -4,3 +4,4 @@ from .exercise import *
 from .category import *
 from .muscle import *
 from .workout import *
+from .equipment import *

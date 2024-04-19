@@ -1,4 +1,5 @@
 from App.models import exercise
+from App.models import equipment
 # from App.models import category
 from App.database import db
 from flask import request, jsonify
@@ -39,10 +40,7 @@ def get_all_exercises_api(limit, start_point):
     #this works to get api data and works in views and template, but doesnt save data to model and database, finda  way to do this tmr.
     
     response = requests.get(url)
-    # if response.status_code == 200:
-    #     return response.json().get('results', [])
-    # else:
-    #     return None
+    
 
     if response.status_code == 200:
         exercise_data = response.json().get('results', [])
@@ -53,13 +51,10 @@ def get_all_exercises_api(limit, start_point):
             if exercise_d.get('language', {}).get('short_name') == 'en' or exercise_d.get('language', {}).get('id') == 2 or exercise_d.get('language', {}).get('full_name') == 'English':
                 name = exercise_d.get('name', '')
                 description = exercise_d.get('description', '')
-                #cat_name = exercise_d.get('category', {}).get('name')
+                
                 exercise_api_id = exercise_d.get('id')
                 category_id = exercise_d.get('category', {}).get('id')
-                # if exercise_d.get('muscles'):
-                #     muscle_id = [muscle.get('id') for muscle in exercise_d.get('muscles', [])]
-                # else:
-                #     muscle_id = None
+                
                 muscles = exercise_d.get('muscles', [])
                 muscle_id = [muscle.get('id') for muscle in muscles]
 
@@ -68,8 +63,11 @@ def get_all_exercises_api(limit, start_point):
 
                 muscle_id = muscle_id[0] if muscle_id else None
                 muscle_id_2 = muscle_id_2[0] if muscle_id_2 else None
+
+                equipment_data = exercise_d.get('equipment', [])
+                equipment_ids = [equipment.get('id') for equipment in equipment_data]
                 
-                
+                #print (equipment_ids)
 
 
                 existing_id_exercise = exercise.query.filter_by(exercise_api_id=exercise_api_id).first()
@@ -83,10 +81,21 @@ def get_all_exercises_api(limit, start_point):
                     clean_text = remove_html_tags(html_text)
                     
                     n_exercise = exercise(exercise_api_id=exercise_api_id, name=name, description=clean_text, category_id=category_id, muscle_id=muscle_id, muscle_id_2=muscle_id_2)
+
+                    for equipment_id in equipment_ids:
+                        print (equipment_id)
+                        n_equipment = equipment.query.filter_by(equip_id=equipment_id).first()
+                        #print ("not hello")
+                        if n_equipment:
+                            n_exercise.equipment.append(n_equipment)
+
+                            print("hello")
                     
                     db.session.add(n_exercise)
         db.session.commit()
         #return exercise_data
+
+        
         
         return get_all_exercises()
     else:
