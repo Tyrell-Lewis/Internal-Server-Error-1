@@ -19,12 +19,8 @@
               <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
               <ul id="nav-mobile" class="left">
                   <li><a href="/">Home</a></li>
-                  <li><a href="/users">Users Jinja</a></li>
-                  <li><a href="/exercises">exercise Page</a></li>
-                  {% if is_authenticated %}
-                    <li><a href="/identify">Identify</a></li>
-                  {% endif %}
-                  <li><a href="/static/users">Users JS</a></li>
+                  <li><a href="/exercises">Exercises</a></li>
+                  <li><a href ="/workouts">Workouts</a></li>
               </ul>
               {% if is_authenticated %}
               <ul id="nav-mobile" class="right">

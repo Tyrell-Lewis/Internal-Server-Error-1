@@ -4,57 +4,6 @@
 
 {{ super() }}
 
-{% block styles %}
-.grid-container {
-  display: grid;
-  column-gap: 5px;
-  row-gap: 5px;
-  grid-template-columns: auto auto auto auto;
-}
-.grid-item{
-}
-.flip-card{
-  background-color: transparent;
-  width: 200px;
-  height: 200px;
-  border: 1px solid #f1f1f1;
-  perspective: 1000px;
-}
-
-.flip-card-inner{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.flip-card:hover .flip-card-inner{
-  transform: rotateY(180deg);
-}
-
-.flip-card-front, .flip-card-back{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-.flip-card-front{
-  background-color: #bbb;
-  color: white;
-}
-
-.flip-card-back {
-  background-color: dodgerblue;
-  color: white;
-  transform: rotateY(180deg);
-}
-
-}
-{% endblock %}
 
 {% block content %}
     <div class="row">
@@ -96,34 +45,34 @@
     </div>
     <div class = "grid-container">
       {%for exercise in exercises%}
-          <div class = "grid-item">
-            <div class = "flip-card">
-              <div class = "flip-card-inner">
-                <div class = "flip-card-front">
-                  <h>{{exercise.name}}</h>
-                  
-                  
-
-                  
-                    <p>{{exercise.category.name}} </p>
-                    {% if exercise.muscle%}
-                      <p>{{exercise.muscle.name}}</p>
-                    {%endif%}
-
-                    {% if exercise.muscle_2%}
-                      <p>{{exercise.muscle_2.name}}</p>
-                    {%endif%}
-
-                  
-                </div>
-                <div class = "flip-card-back">
-                  <p>{{exercise.description}}</p>
-                </div>
-              </div>
+      <div class = "divider"></div>
+      <div class="row">
+        <div class="col s12">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">{{exercise.name}}</span>
+              <p>{{exercise.description}}</p>
+              <p>{{exercise.category.name}}</p>
+              {% if exercise.muscle %}
+                <p>{{exercise.muscle.name}}</p>
+              {% endif %}
+              {% if exercise.muscle_2 %}
+                <p>{{exercise.muscle_2.name}}</p>
+              {% endif %}
+            </div>
+            <div class="card-action">
+              <form method = "POST" action = "/workout/{{exercise.id}}">
+                <button class = "btn red">Add Exercise</button>
+              </form>
             </div>
           </div>
+        </div>
+      </div> 
       {%endfor%}
 
       
     </div>
 {% endblock%}
+
+
+  
