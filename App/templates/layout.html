@@ -46,11 +46,20 @@
       </ul>
       <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
+      <main>
+        <div class="container" id="content">{% block content %}{% endblock %}</div>
+      </main>
+
 
       <style>
 
+          html, body {
+            height: 100%;
+            width: 100%;
+          }
+
           header, main, footer {
-              padding-left: 200px;
+              padding-left: 300px;
           }
 
 
@@ -64,8 +73,6 @@
 
           {% endblock %}
       </style>
-
-    <div class="container" id="content">{% block content %}{% endblock %}</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
