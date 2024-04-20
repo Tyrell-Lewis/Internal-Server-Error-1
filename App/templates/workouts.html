@@ -8,4 +8,29 @@
 
 <p>sfs</p>
 
+<form class="col s12" method="POST" action="/workouts">
+        
+    <div class="row">
+      <div class="input-field col s6">
+        <input placeholder="workout name" name="exer_id" type="text">
+        <label for="exer_id"></label>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="input-field col s12">
+        <button class="btn waves-effect waves-light right purple" type="submit" name="action">Add to Workout</button>
+      </div>
+    </div> 
+
+  </form>
+
+  {%for workout in workouts%}
+        <p>Workout ID: {{workout.work_id}} </p>
+        <p>Workout name: {{workout.name}} </p>
+        <p>Workout description: {{workout.description}} </p>
+        <p>Workout sets: {{workout.sets}} </p>
+        <p>Workout reps: {{workout.reps}} </p>
+  {%endfor%}
+
 {% endblock %}
