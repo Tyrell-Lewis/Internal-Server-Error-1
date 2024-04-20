@@ -15,17 +15,17 @@ def addExercise(user_id, name, exercise_id):
         db.session.commit()
 
 
-def add_exer_to_workout(work_id, name, description, sets, reps):
-    # new_exer = getExercise(exercise_api_id)
+def add_exer_to_workout(name, description, sets, reps, exer_id):
+   
 
-    # if new_exer:
-    #     db.session.add(new_exer)
-    #     db.session.commit()
-    #     return new_exer
-    # else:
-    #     return None
+    new_exercise= workout(name=name, description=description, sets=sets, reps=reps) #cat_name=cat_name)
 
-    new_exercise= workout(work_id=work_id, name=name, description=description, sets=sets, reps=reps) #cat_name=cat_name)
+    #for equipment_id in equipment_ids:
+                        
+    n_equipment = exercise.query.filter_by(exercise_api_id=exer_id).first()
+                        
+    if n_equipment:
+        new_exercise.exercise.append(n_equipment)
     db.session.add(new_exercise)
     db.session.commit()
     return new_exercise

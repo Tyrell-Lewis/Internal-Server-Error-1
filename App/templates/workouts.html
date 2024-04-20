@@ -31,6 +31,28 @@
         <p>Workout description: {{workout.description}} </p>
         <p>Workout sets: {{workout.sets}} </p>
         <p>Workout reps: {{workout.reps}} </p>
+
+        {% if workout.exercise %}
+                  <ul>
+                      {% for equip in workout.exercise %}
+                          <li>Exercise name: {{ equip.name }}</li>
+                          <li>Exercise name: {{ equip.category.name }}</li>
+                          
+                          {% if equip.muscle_2 %}
+                            <p>Secondary Muscle group: </p>
+                              <ul>
+                                  {% for musc in equip.muscle_2 %}
+                                      <li>{{ musc.name }}</li>
+                                  {% endfor %}
+                              </ul>
+                          {%else%}
+                            <p>Secondary muscle group: Not listed!</p>
+                          {% endif %}
+                                  {% endfor %}
+                              </ul>
+                          {%else%}
+                            <p>Not working</p>
+                          {% endif %}
   {%endfor%}
 
 {% endblock %}
