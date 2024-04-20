@@ -1,6 +1,7 @@
 from App.models import workout
 from App.models import exercise
 from App.models import workout_exercise
+from App.models import User
 from App.database import db
 
 def get_all_workouts():
@@ -12,18 +13,23 @@ def get_test():
 
 
 
-def create_workout(name, description, exercise_api_id):
+def create_workout(name, description, exercise_api_id, user_id):
    
 
     new_workout= workout(name=name, description=description, exercise_id=exercise_api_id) 
 
     if new_workout:
-        db.session.add(new_workout)
-        db.session.commit()
-        return new_workout
+        existing_user = User.query.get(user_id)
+
+        if existing_user:
+            existing_user.workout.append(new_workout)
+            db.session.add(new_workout)
+            db.session.commit()
+            return new_workout
+        else:
+            return None
     else:
         return None
-
  
                         
     # exercise_instance = exercise.query.filter_by(exercise_api_id=exercise_api_id).first()
