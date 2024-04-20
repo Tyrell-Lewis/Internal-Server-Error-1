@@ -85,6 +85,8 @@ def get_all_exercises_api(limit, start_point):
                     
                     n_exercise = exercise(exercise_api_id=exercise_api_id, name=name, description=clean_text, category_id=category_id)#, muscle_id=muscle_id, muscle_id_2=muscle_id_2)
 
+                    db.session.add(n_exercise)
+
                     for equipment_id in equipment_ids:
                         
                         n_equipment = equipment.query.filter_by(equip_id=equipment_id).first()

@@ -21,7 +21,7 @@ def get_exercise_page():
     muscles = get_all_muscles_api()
     equipment = get_all_equipment_api()
 
-    exercises = get_all_exercises_api(limit,start_point)
+    exercises = get_all_exercises_api(limit,start_point) #THIS SHOULD LOAD ON STARTUP, OR FIND A WAY TO POPULATE MODEL ON STARTUP
     
     #exercises = get_all_exercises()
 
