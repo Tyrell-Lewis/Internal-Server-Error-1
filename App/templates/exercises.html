@@ -48,8 +48,9 @@
                 {% if exercise.equipment %}
                   <p><b>Equipment: </b>{%for equip in exercise.equipment %}{{equip.name}} {%endfor%}</p>
                 {% endif %}
-                <form class = "col s12 offset-s10" method = "GET">
-                  <a href = "/workouts" class="btn-floating halfway waves-effect waves-light red"><i class="material-icons">add</i></a>
+                <form class = "col s12 offset-s10" method = "GET" action="/workouts/{{ exercise.exercise_api_id }}">
+                  <input type="hidden" name="exercise_id" value="{{ exercise.exercise_api_id }}">
+                  <button class="btn-floating halfway waves-effect waves-light red" type="submit"><i class="material-icons">add</i></button>
                 </form>
 
               </div>

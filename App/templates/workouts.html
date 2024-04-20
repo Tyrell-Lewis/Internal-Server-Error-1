@@ -6,7 +6,6 @@
 
 {% block content %}
 
-<p>sfs</p>
 
 <form class="col s12" method="POST" action="/workouts">
         
@@ -25,6 +24,19 @@
 
   </form>
 
+  {%if sel_exercise %}
+  <form class="col s12" method="POST" action="/add_workout_exercise">
+    <input type="hidden" name="exercise_id" value="{{sel_exercise.exercise_api_id}}">
+    <select name="workout_id">
+        {% for workout in workouts %}
+        <option value="{{ workout.work_id }}">{{ workout.name }}</option>
+        {% endfor %}
+    </select>
+    <button class="btn waves-effect waves-light right purple" type="submit" name="action">Add exercise to workout</button>
+</form>
+
+  {%endif%}
+
   {%for workout in workouts%}
   <div class="row">
     <div class="col s12 m6">
@@ -36,29 +48,61 @@
 
         </div>
         <div class="card-action">
-          {% for test in workout.sets_reps %}
-            {% if test.exercise_id ==  workout.exercise_id%}
-              <p>Sets: {{ test.sets }}</p>
-              <p>Reps: {{ test.reps }}</p>
+          <!--{% for testing in workout.sets_reps %}
+            {% if testing.exercise_id ==  workout.exercise_id%}
+              <p>Value of testing.exercise_id: {{testing.exercise_id}}</p>
+              <p>Value of workout.exercise_id: {{workout.exercise_id}}</p>
+              <p>Sets: {{ testing.sets }}</p>
+              <p>Reps: {{ testing.reps }}</p>
             {% endif %}
-          {% endfor %}
-          <a href="#">This is a link</a>
+          {% endfor %}-->
+          
+
+
+
+
+         
+              {% if workout.sets_reps %}
+                  {%for link in workout.sets_reps%}
+
+                  <p><b>Reps for the exercise: </b>{{link.reps}}</p>
+                  <p><b>Sets for the exercise: </b>{{link.sets}}</p>
+
+                    {%for exer in link.exercise%}
+                        {%if exer.exercise_api_id == link.exercise_id%}
+                            <p><b>Exercise name: </b>{{exer.name}}</p>
+                        {%endif%}
+                    {%endfor%}
+                      
+                  {%endfor%}
+              
+              {% endif %}
+          
+          <a href="#">
+            
+        </a>
         </div>
       </div>
     </div>
   </div>
   {%endfor%}
 
-  {%for workout_exercise_entry in test%}
+  <!--{%for workout_exercise_entry in test%}
+    
     <p>Exercise API ID: {{workout_exercise_entry.exercise_id}}</p>
+
     <p>Sets: {{workout_exercise_entry.sets}},</p>
     <p>Reps: {{workout_exercise_entry.reps}}</p>
-    <p>Exercise name: {{workout_exercise_entry.exercise.name}} </p> <!--This is wrong way to display info-->
+    <p>Exercise name: {{workout_exercise_entry.exercise.name}} </p> 
 
-    {% for musc in workout_exercise_entry.exercise %} <!--This is the correct way to display the info, you have to iterate over the list of referenced objects.-->
+   {% for musc in workout_exercise_entry.exercise %}
                           <p>Exercise name:{{musc.name }}</p>
                       {% endfor %}
     
-  {%endfor%}
+        {%endfor%}
+
+    <p>Testing selected exercise values</p>
+
+    <p>Exercise API:{{sel_exercise.exercise_api_id}} </p>-->
 
 {% endblock %}

@@ -17,7 +17,7 @@ class workout(db.Model):
     description = db.Column(db.String(5000), nullable=True)
     # sets = db.Column(db.Integer, nullable=True)
     # reps = db.Column(db.Integer, nullable=True)
-    exercise_id = db.Column(db.Integer, nullable=False)
+    exercise_id = db.Column(db.Integer, nullable=True)
 
 
     

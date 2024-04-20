@@ -30,7 +30,7 @@ def get_exercise_page(cat_id = -1):
     
     #exercises = get_all_exercises()
 
-    return render_template('exercises.html', exercises=exercises, category = category, muscles=muscles, equipment=equipment)
+    return render_template('exercises.html', exercises=exercises, category = category, muscles=muscles, equipment=equipment, exercise_id=request.args.get('exercise_id'))
 
 @exercise_views.route('/exercises', methods=['POST'])
 def create_exercise_action():

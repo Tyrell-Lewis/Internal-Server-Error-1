@@ -28,17 +28,13 @@ class exercise(db.Model):
     exercise_api_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False, unique=True)
     description = db.Column(db.String(5000), nullable=False)
-    #cat_name = db.Column(db.String(120), nullable=False)
+   
     
-    # categories = db.relationship('category', backref=db.backref('exercises', lazy=True))
-    # category_id = db.Column(db.Integer, db.ForeignKey('category.cat_id'), nullable=False)
+    
     category = db.relationship('category', backref=db.backref('exercise', lazy=True))
     category_id = db.Column(db.Integer, db.ForeignKey('category.cat_id'))
     
-    # muscle_id = db.Column(db.Integer, db.ForeignKey('muscle.musc_id'))
-    # muscle = db.relationship('muscle', foreign_keys=[muscle_id], backref=db.backref('exercise', lazy=True))
-    # muscle_id_2 = db.Column(db.Integer, db.ForeignKey('muscle.musc_id'))
-    # muscle_2 = db.relationship('muscle', foreign_keys=[muscle_id_2], backref=db.backref('exercise_secondary', lazy=True))
+  
     
     equipment = db.relationship('equipment', secondary=exercise_equipment, backref=db.backref('exercises', lazy='dynamic'))
     muscle = db.relationship('muscle', secondary=exercise_muscle, backref=db.backref('exercises', lazy='dynamic'))
@@ -50,8 +46,7 @@ class exercise(db.Model):
         self.description = description
         #self.cat_name = cat_name
         self.category_id = category_id
-        # self.muscle_id = muscle_id
-        # self.muscle_id_2 = muscle_id_2
+        
         
 
     def __repr__(self):
