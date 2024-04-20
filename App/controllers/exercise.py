@@ -1,6 +1,7 @@
 from App.models import exercise
 from App.models import equipment
 from App.models import muscle
+from App.models import category
 # from App.models import category
 from App.database import db
 from flask import request, jsonify
@@ -119,3 +120,6 @@ def get_all_exercises_api(limit, start_point):
         return get_all_exercises()
     else:
         return None
+
+def getCategoryExercises(cat_id):
+    return exercise.query.filter_by(category_id = cat_id).all()

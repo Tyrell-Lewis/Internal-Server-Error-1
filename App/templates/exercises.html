@@ -20,14 +20,16 @@
           <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
         </div>
       </form>
-      <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Filter</a>
-
-      <!-- Dropdown Structure -->
-      <ul id='dropdown1' class='dropdown-content'>
-        {% for category in categories %}
-        <li><a href="">{{category.name}}</a></li>
-        {% endfor %}
-      </ul>
+      <form method = "GET" action = "/exercises/{{category.cat_id}}">
+        <!-- Dropdown Trigger -->
+        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Filter</a>
+        <!-- Dropdown Structure -->
+        <ul id='dropdown1' class='dropdown-content'>
+          {% for category in category %}
+            <li><a href = "/exercises/{{category.cat_id}}">{{category.name}}</a></li>
+          {% endfor %}
+        </ul>
+      </form>
     </div>
     <div class = "grid-container">
       <div class = "row">
