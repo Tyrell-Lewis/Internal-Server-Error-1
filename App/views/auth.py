@@ -33,7 +33,7 @@ def get_login_page():
 def login_action():
     data = request.form
     token = login(data['username'], data['password'])
-    response = redirect(request.referrer)
+    response = redirect(url_for('workout_views.get_workout_page'))
     if not token:
         flash('Bad username or password given'), 401
     else:
@@ -43,7 +43,7 @@ def login_action():
 
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():
-    response = redirect(request.referrer) 
+    response = redirect(url_for('exercise_views.get_exercise_page'))
     flash("Logged Out!")
     unset_jwt_cookies(response)
     return response
