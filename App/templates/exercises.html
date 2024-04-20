@@ -14,12 +14,12 @@
 {% block content %}
 
     <div class="row">
-      <form class="col s12" method="POST" action="/exercises">
+      <!--<form class="col s12" method="POST" action="/exercises">
         <div class = "input-field">
           <input placeholder="Search..." name = "exercise_name" type = "text">
           <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
         </div>
-      </form>
+      </form>-->
       <form method = "GET" action = "/exercises/{{category.cat_id}}">
         <!-- Dropdown Trigger -->
         <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Filter</a>
@@ -28,6 +28,7 @@
           {% for category in category %}
             <li><a href = "/exercises/{{category.cat_id}}">{{category.name}}</a></li>
           {% endfor %}
+            <li><a href= "/exercises">No Filter</a></li>
         </ul>
       </form>
     </div>
