@@ -28,7 +28,7 @@
   <form class="col s12" method="POST" action="/add_workout_exercise">
     <input type="hidden" name="exercise_id" value="{{sel_exercise.exercise_api_id}}">
     <select name="workout_id">
-        {% for workout in workouts %}
+        {% for workout in current_user.workout %}
         <option value="{{ workout.work_id }}">{{ workout.name }}</option>
         {% endfor %}
     </select>
@@ -37,55 +37,60 @@
 
   {%endif%}
 
-  {%for workout in workouts%}
-  <div class="row">
-    <div class="col s12 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Workout ID: {{workout.work_id}}</span>
-          <p><p>Workout name: {{workout.name}} </p>
-          <p>Workout description: {{workout.description}} </p></p>
+  {%if current_user.workout%}
 
-        </div>
-        <div class="card-action">
-          <!--{% for testing in workout.sets_reps %}
-            {% if testing.exercise_id ==  workout.exercise_id%}
-              <p>Value of testing.exercise_id: {{testing.exercise_id}}</p>
-              <p>Value of workout.exercise_id: {{workout.exercise_id}}</p>
-              <p>Sets: {{ testing.sets }}</p>
-              <p>Reps: {{ testing.reps }}</p>
-            {% endif %}
-          {% endfor %}-->
-          
+      {%for workout in current_user.workout%}
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Workout ID: {{workout.work_id}}</span>
+              <p><p>Workout name: {{workout.name}} </p>
+              <p>Workout description: {{workout.description}} </p></p>
 
-
-
-
-         
-              {% if workout.sets_reps %}
-                  {%for link in workout.sets_reps%}
-
-                  <p><b>Reps for the exercise: </b>{{link.reps}}</p>
-                  <p><b>Sets for the exercise: </b>{{link.sets}}</p>
-
-                    {%for exer in link.exercise%}
-                        {%if exer.exercise_api_id == link.exercise_id%}
-                            <p><b>Exercise name: </b>{{exer.name}}</p>
-                        {%endif%}
-                    {%endfor%}
-                      
-                  {%endfor%}
+            </div>
+            <div class="card-action">
+              <!--{% for testing in workout.sets_reps %}
+                {% if testing.exercise_id ==  workout.exercise_id%}
+                  <p>Value of testing.exercise_id: {{testing.exercise_id}}</p>
+                  <p>Value of workout.exercise_id: {{workout.exercise_id}}</p>
+                  <p>Sets: {{ testing.sets }}</p>
+                  <p>Reps: {{ testing.reps }}</p>
+                {% endif %}
+              {% endfor %}-->
               
-              {% endif %}
-          
-          <a href="#">
+
+
+
+
             
-        </a>
+                  {% if workout.sets_reps %}
+                      {%for link in workout.sets_reps%}
+
+                      <p><b>Reps for the exercise: </b>{{link.reps}}</p>
+                      <p><b>Sets for the exercise: </b>{{link.sets}}</p>
+
+                        {%for exer in link.exercise%}
+                            {%if exer.exercise_api_id == link.exercise_id%}
+                                <p><b>Exercise name: </b>{{exer.name}}</p>
+                            {%endif%}
+                        {%endfor%}
+                          
+                      {%endfor%}
+                  
+                  {% endif %}
+              
+              <a href="#">
+                
+            </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  {%endfor%}
+      {%endfor%}
+    {%else%}
+        <p>User has no workouts yet</p>
+    {%endif%}
 
   <!--{%for workout_exercise_entry in test%}
     

@@ -18,6 +18,7 @@ class workout(db.Model):
     # sets = db.Column(db.Integer, nullable=True)
     # reps = db.Column(db.Integer, nullable=True)
     exercise_id = db.Column(db.Integer, nullable=True)
+    #user_id = db.Column(db.Integer, nullable=True)
 
 
     
@@ -31,4 +32,5 @@ class workout(db.Model):
         # self.sets = sets
         # self.reps = reps
         self.exercise_id = exercise_id
+        #self.user_id = user_id
         

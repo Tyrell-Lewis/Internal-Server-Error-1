@@ -43,6 +43,10 @@
         </thead>
         <tbody>
           {% for user in users %}
+
+            {% if current_user.workout%}
+                <p>This user has a workout</p>
+            {%endif%}
             <tr>
                 <td>{{user.id}}</td>
                 <td>{{user.username}}</td>
