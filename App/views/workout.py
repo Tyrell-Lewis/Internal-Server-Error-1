@@ -8,9 +8,9 @@ from App.controllers import (get_all_workouts, create_workout, add_exer_to_worko
 workout_views = Blueprint('workout_views', __name__, template_folder='../templates')
 
 @workout_views.route('/workouts', methods =['GET'])
+@workout_views.route('/workouts/<int:ex_id', methods =['GET'])
 @jwt_required()
-def get_workout_page():
-
+def get_workout_page(ex_id):
     workouts = get_all_workouts()
     test = get_test()
     return render_template('workouts.html', workouts = workouts, test=test)
