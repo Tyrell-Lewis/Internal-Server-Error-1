@@ -4,20 +4,29 @@
 
 {{ super() }}
 
+{% block styles %}
+
+  h5 {
+    text-align: center;
+  }
+
+{% endblock %}
+
+
 {% block content %}
 
-  <h5>Create Workout</h5>
+  <h5 style="text-align: left;">Create Workout</h5>
 
   <form class="col s12" method="POST" action="/workouts">
     <div class="row">
       <div class="input-field col m3">
         <input placeholder="Workout Name" name="name" type="text">
-        <label for="name"></label>
+        <label for="name">Name</label>
       </div>
 
       <div class="input-field col m7">
         <input placeholder="Workout Description" name="desc" type="text">
-        <label for="desc"></label>
+        <label for="desc">Description</label>
       </div>
 
       <div class="input-field col m2">
@@ -26,91 +35,75 @@
     </div>
   </form>
 
-  {%if sel_exercise %}
+  <div class="row">
+    <section class="col s12 m6">
 
-    <h5>Add Exercise</h5>
+      <h5>Your Workouts</h5>
+      <br>
 
-    <form class="col s12" method="POST" action="/workouts/add">
-      <input type="hidden" name="exercise_id" value="{{sel_exercise.exercise_api_id}}">
-      
-      <div class="row">
-        <div class="col m3">
-          <select name="workout_id">
-            {% for workout in current_user.workout %}
-            <option value="{{ workout.work_id }}">{{ workout.name }}</option>
-            {% endfor %}
-          </select>
-        </div>
+      {%if current_user.workout%}
+        {%for workout in current_user.workout%}
 
-        <div class="col m2">
-          <button class="btn waves-effect waves-light right purple" type="submit" name="action">Add exercise to workout</button>
-        </div>
-      </div>
-    </form>
-
-  {%endif%}
-
-  <h5>Your Workouts</h5>
-
-  {%if current_user.workout%}
-
-      {%for workout in current_user.workout%}
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">{{workout.name}}</span>
-              <p>{{workout.description}}</p>
-              <p>{{workout.work_id}}</p>
-            </div>
-            <div class="card-action">
-              <a href="/workouts/info/{{workout.work_id}}" class="btn">Exercises</a>
-              <a href="/workouts/delete/{{workout.work_id}}" class="btn"><i class="material-icons">delete</i></a>
-              <!--{% for testing in workout.sets_reps %}
-                {% if testing.exercise_id ==  workout.exercise_id%}
-                  <p>Value of testing.exercise_id: {{testing.exercise_id}}</p>
-                  <p>Value of workout.exercise_id: {{workout.exercise_id}}</p>
-                  <p>Sets: {{ testing.sets }}</p>
-                  <p>Reps: {{ testing.reps }}</p>
-                {% endif %}
-              {% endfor %}-->
-              
-                  <!-- {% if workout.sets_reps %}
-                      {%for link in workout.sets_reps%}
-                      <p><b>Reps for the exercise: </b>{{link.reps}}</p>
-                      <p><b>Sets for the exercise: </b>{{link.sets}}</p>
-                        {%for exer in link.exercise%}
-                            {%if exer.exercise_api_id == link.exercise_id%}
-                                <p><b>Exercise name: </b>{{exer.name}}</p>
-                            {%endif%}
-                        {%endfor%}
-                      {%endfor%}
-                  {% endif %} -->
+          <div class="row" style="padding-left: 20px; padding-right: 20px;">
+            <div class="card blue-grey darken-1">
+              <div class="card-content white-text">
+                <span class="card-title">{{workout.name}}</span>
+                <p>{{workout.description}}</p>
+                <p>{{workout.work_id}}</p>
+              </div>
+              <div class="card-action">
+                <a href="/workouts/info/{{workout.work_id}}" class="btn">Exercises</a>
+                <a href="/workouts/delete/{{workout.work_id}}" class="btn"><i class="material-icons">delete</i></a>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      {%endfor%}
-    {%else%}
-        <p>You have no workouts yet</p>
-    {%endif%}
 
-  <!--{%for workout_exercise_entry in test%}
-    
-    <p>Exercise API ID: {{workout_exercise_entry.exercise_id}}</p>
-
-    <p>Sets: {{workout_exercise_entry.sets}},</p>
-    <p>Reps: {{workout_exercise_entry.reps}}</p>
-    <p>Exercise name: {{workout_exercise_entry.exercise.name}} </p> 
-
-   {% for musc in workout_exercise_entry.exercise %}
-                          <p>Exercise name:{{musc.name }}</p>
-                      {% endfor %}
-    
         {%endfor%}
+      {%else%}
 
-    <p>Testing selected exercise values</p>
+        <p>You have no workouts yet</p>
+      
+      {%endif%}
 
-    <p>Exercise API:{{sel_exercise.exercise_api_id}} </p>-->
+    </section>
+
+    <section class="col s12 m6">
+
+      {%if sel_exercise %}
+        
+        <h5>Add Exercise</h5>
+
+        <form method="POST" action="/workouts/add" style="padding-left: 20px; padding-right: 20px;">
+          <input type="hidden" name="exercise_id" value="{{sel_exercise.exercise_api_id}}">
+          
+          <div class="row">
+              <select name="workout_id">
+                {% for workout in current_user.workout %}
+                <option value="{{ workout.work_id }}">{{ workout.name }}</option>
+                {% endfor %}
+              </select>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m6">
+              <input type="number" name="sets" value="1">
+              <label for="sets">Sets</label>
+            </div>
+
+            <div class="input-field col m6">
+              <input type="number" name="reps" value="1">
+              <label for="reps">Reps</label>
+            </div>
+          </div>
+
+          <div class="row">
+              <button class="btn waves-effect waves-light right purple" type="submit" name="action"><i class="material-icons">add</i></button>
+          </div>
+        </form>
+
+      {%endif%}
+
+    </section>
+  </div>
 
 {% endblock %}
