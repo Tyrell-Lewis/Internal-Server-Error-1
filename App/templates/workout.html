@@ -5,35 +5,38 @@
 {{ super() }}
 
 {% block content %}
-
-        <table>
+<section class="row">
+<section class="col s12 m6">
+  {%if current_user.workout%}
+              
+            {%for workout in current_user.workout%}
+              {%if sel_workout.work_id == workout.work_id%}
+              
+        <table class="striped highlight">
           <thead>
             
             <tr>
-                <th>Exercise Name</th>
-                <th>Sets</th>
-                <th>Reps</th>
+                <th><b>Exercise Name</b></th>
+                <th><b>Sets</b></th>
+                <th><b>Reps</b></th>
             </tr>
           </thead>
 
-          {%if current_user.workout%}
-
-            {%for workout in current_user.workout%}
-
+          
           
           <tbody>
             
                {% if workout.sets_reps %}
                       {%for link in workout.sets_reps%}
-                      <tr>
-              <td><b>Reps for the exercise: </b>{{link.reps}}</td>
-              <td><b>Sets for the exercise: </b>{{link.sets}}</td>
+            <tr>
               {%for exer in link.exercise%}
-                {%if exer.exercise_api_id == link.exercise_id%}
-                  <td><b>Exercise name: </b>{{exer.name}}</td>
-              {%endif%}
-          {%endfor%}
-        </tr>
+                  {%if exer.exercise_api_id == link.exercise_id%}
+                      <td>{{exer.name}}</td>
+                  {%endif%}
+              {%endfor%}
+                      <td>{{link.sets}}</td>
+                      <td>{{link.reps}}</td>
+            </tr>
           {%endfor%}
           {%endif%}
 
@@ -43,7 +46,17 @@
             
           </tbody>
         </table>
+          
+          {%endif%}
         {%endfor%}
       {%endif%}
+  </section>
+
+  <section class="col s12 m6">
+    <ul  >
+       
+    </ul>
+  </section>
+</section>
 
 {% endblock %}

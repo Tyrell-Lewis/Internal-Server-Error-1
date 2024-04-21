@@ -7,6 +7,9 @@ from App.database import db
 def get_all_workouts():
     return workout.query.all()
 
+def get_workout(id):
+    return workout.query.filter_by(work_id=id).first()
+
 def get_workout_exercises():
     return workout_exercise.query.all()
     #return db.session.query(workout_exercise).filter_by(work_id=1).all()
