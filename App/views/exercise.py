@@ -15,14 +15,14 @@ def get_exercise_page(cat_id = -1):
     # limit = request.form.get('limit')
 
     start_point = 0 #This is starting point for all exercies
-    limit = 200 #This gives the limit of how much exercises to render.
+    limit = 20 #This gives the limit of how much exercises to render.
 
     #Just make sure the other models are populated first then call the exercise to do the functions.
-    category = get_all_categories_api()
-    muscles = get_all_muscles_api()
-    equipment = get_all_equipment_api()
+    category = get_all_categories()
+    muscles = get_all_muscles()
+    equipment = get_all_equipment()
     if cat_id == -1:
-        exercises = get_all_exercises_api(limit,start_point) #THIS SHOULD LOAD ON STARTUP, OR FIND A WAY TO POPULATE MODEL ON STARTUP
+        exercises = get_all_exercises()#THIS SHOULD LOAD ON STARTUP, OR FIND A WAY TO POPULATE MODEL ON STARTUP
     else:
         exercises = getCategoryExercises(cat_id)
 
