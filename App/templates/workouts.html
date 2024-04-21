@@ -34,13 +34,15 @@
     </div>
   </form>
 
+  {%if current_user.workout%}
+
   <div class="row">
     <section class="col s12 m6">
 
       <h5>Your Workouts</h5>
       <br>
 
-      {%if current_user.workout%}
+      
         {%for workout in current_user.workout%}
 
           <div class="row" style="padding-left: 20px; padding-right: 20px;">
@@ -58,11 +60,7 @@
           </div>
 
         {%endfor%}
-      {%else%}
-
-        <p>You have no workouts yet</p>
       
-      {%endif%}
 
     </section>
 
@@ -101,6 +99,12 @@
           </div>
         </form>
 
+      {%endif%}
+
+      {%else%}
+
+        <p>You have no workouts yet</p>
+      
       {%endif%}
 
     </section>
