@@ -13,10 +13,13 @@ auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
 '''
 Page/Action Routes
 '''    
+
+
 @auth_views.route('/users', methods=['GET'])
 def get_user_page():
     users = get_all_users()
     return render_template('users.html', users=users)
+
 
 @auth_views.route('/identify', methods=['GET'])
 @jwt_required()
@@ -41,6 +44,7 @@ def login_action():
         set_access_cookies(response, token) 
     return response
 
+
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():
     response = redirect(url_for('exercise_views.get_exercise_page'))
@@ -48,9 +52,14 @@ def logout_action():
     unset_jwt_cookies(response)
     return response
 
+
+
+
+
 '''
 API Routes
 '''
+
 
 @auth_views.route('/api/login', methods=['POST'])
 def user_login_api():
@@ -62,13 +71,16 @@ def user_login_api():
   set_access_cookies(response, token)
   return response
 
+
 @auth_views.route('/api/identify', methods=['GET'])
 @jwt_required()
 def identify_user():
     return jsonify({'message': f"username: {current_user.username}, id : {current_user.id}"})
+
 
 @auth_views.route('/api/logout', methods=['GET'])
 def logout_api():
     response = jsonify(message="Logged Out!")
     unset_jwt_cookies(response)
     return response
+
