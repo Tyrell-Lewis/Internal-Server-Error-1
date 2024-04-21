@@ -25,7 +25,7 @@
   </form>
 
   {%if sel_exercise %}
-  <form class="col s12" method="POST" action="/add_workout_exercise">
+  <form class="col s12" method="POST" action="/workouts/add">
     <input type="hidden" name="exercise_id" value="{{sel_exercise.exercise_api_id}}">
     <select name="workout_id">
         {% for workout in current_user.workout %}
@@ -80,7 +80,7 @@
                   
                   {% endif %} -->
               
-              <a href="/workout_info/{{workout.work_id}}" class="btn">click here</a>
+              <a href="/workout/info/{{workout.work_id}}" class="btn">click here</a>
               <a href="/workouts/delete/{{workout.work_id}}" class="btn">delete</a>
             
             </div>

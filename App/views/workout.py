@@ -7,6 +7,7 @@ from App.controllers import (get_all_workouts, create_workout, add_exer_to_worko
 
 workout_views = Blueprint('workout_views', __name__, template_folder='../templates')
 
+
 @workout_views.route('/workouts', methods =['GET'])
 @workout_views.route('/workouts/<id>', methods =['GET'])
 @jwt_required()
@@ -22,8 +23,9 @@ def get_workout_page(id=-1):
         sel_exercise = get_exercise(id)
     return render_template('workouts.html', workouts = workouts, workout_exercises=workout_exercises, sel_exercise=sel_exercise, current_user=current_user)
 
-@workout_views.route('/workout_info', methods =['GET'])
-@workout_views.route('/workout_info/<id>', methods =['GET'])
+
+@workout_views.route('/workout/info', methods=['GET'])
+@workout_views.route('/workout/info/<id>', methods=['GET'])
 @jwt_required()
 def get_workout_info_page(id=-1):
     workouts = get_all_workouts()
@@ -37,6 +39,7 @@ def get_workout_info_page(id=-1):
         sel_workout = get_workout(id)
     return render_template('workout.html', workouts = workouts, workout_exercises=workout_exercises, sel_workout=sel_workout, current_user=current_user)
 
+
 @workout_views.route('/workouts', methods=['POST'])
 @jwt_required()
 def create_workout_action():
@@ -46,7 +49,7 @@ def create_workout_action():
     return redirect (url_for('workout_views.get_workout_page'))
 
 
-@workout_views.route('/add_workout_exercise', methods=['POST'])
+@workout_views.route('/workouts/add', methods=['POST'])
 def add_workout_exercise():
     exercise_id = request.form.get('exercise_id')
     workout_id = request.form.get('workout_id')
@@ -72,3 +75,4 @@ def delete_workout_action(id=None):
     if id:
         delete_workout(id)
     return redirect(url_for('workout_views.get_workout_page'))
+

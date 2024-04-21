@@ -75,4 +75,20 @@ def delete_workout(work_id):
     if workout:
         db.session.delete(workout)
         db.session.commit()
+    else:
+        return None
+
+
+def delete_workout_exercise(work_id, exer_id):
+    ex = exercise.query.filter_by(exercise_api_id=exer_id).first()
+    existing_workout = workout.query.get(work_id)
+    if existing_workout:
+        exercise_instance = workout_exercise.query.filter_by(exercise_id=exer_id).first()
+        if exercise_instance:
+            exercise_instance.exercise.remove(ex)
+            db.session.commit()
+        else:
+            return None
+    else:
+        return None
 
