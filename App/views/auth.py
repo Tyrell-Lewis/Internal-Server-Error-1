@@ -14,7 +14,6 @@ auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
 Page/Action Routes
 '''    
 
-
 @auth_views.route('/users', methods=['GET'])
 def get_user_page():
     users = get_all_users()
@@ -53,13 +52,9 @@ def logout_action():
     return response
 
 
-
-
-
 '''
 API Routes
 '''
-
 
 @auth_views.route('/api/login', methods=['POST'])
 def user_login_api():

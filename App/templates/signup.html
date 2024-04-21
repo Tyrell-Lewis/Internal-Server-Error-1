@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Signup{% endblock %}
+{% block page %}Signup{% endblock %}
+
+{{ super() }}
+
+{% block styles %}
+
+    .container{
+        padding: 0px 300px 0px 300px;
+    }
+
+{% endblock %}
+
+{% block content %}
+    
+    <br><br>
+
+    <div class="col s12 m7">
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <div class="row">
+                    <form method="POST" action="/signup" style="align-items: center;"">
+                        <div class="card-content">
+                            <div class="input-field">
+                                <input placeholder="Username" name="username" type="text" class="validate" required>
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="input-field">
+                                <input placeholder="password" name="password" type="password" class="validate" required>
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+
+                        <div class="card-action">
+                          <button type="submit" class="btn waves-effect waves-light">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
