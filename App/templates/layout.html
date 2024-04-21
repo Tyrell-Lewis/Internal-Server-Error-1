@@ -23,20 +23,18 @@
       <ul id="slide-out" class="sidenav sidenav-fixed">
         <li>
           <div class="user-view">
-            <!-- <div class="background">
-              <img src="images/profile.png">
-            </div> -->
             {% if is_authenticated %}
               <i class="medium material-icons circle">account_circle</i>
               <a href="#!"><span class="black-text name">{{current_user.username}}</span></a>
               <a href="/logout" class="waves-effect waves-teal btn-flat">Sign Out</a>   
             {% else %}
               <i class="medium material-icons circle">account_circle</i>
-              <!-- <a href="/login"><i class="large material-icons">account_circle</i></a> -->
               <a href="/login" class="waves-effect waves-teal btn-flat">Sign In</a>              
             {% endif %}
           </div>
         </li>
+        <li><div class="divider"></div></li>
+        <li><a class="waves-effect" href="/home"><i class="material-icons">home</i>Home</a></li>
         <li><div class="divider"></div></li>
         {% if is_authenticated %}
           <li><a class="subheader">Your</a></li>
@@ -46,7 +44,6 @@
         <li><a class="subheader">Browse</a></li>
         <li><a class="waves-effect" href="/exercises"><i class="material-icons">fitness_center</i>Exercises</a></li>
         <li><a class="waves-effect" href="/users"><i class="material-icons">fitness_center</i>Users</a></li>
-        <li><a class="waves-effect" href="/home"><i class="material-icons">fitness_center</i>Home</a></li>
       </ul>
       <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
