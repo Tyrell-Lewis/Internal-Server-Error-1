@@ -4,7 +4,17 @@
 
 {{ super() }}
 
+{% block styles %}
+
+    .container{
+        padding: 0px 300px 0px 300px;
+    }
+
+{% endblock %}
+
 {% block content %}
+    
+    <br><br>
 
     <div class="col s12 m7">
         <div class="card horizontal">
