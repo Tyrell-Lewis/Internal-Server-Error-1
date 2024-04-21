@@ -22,6 +22,20 @@ def get_workout_page(id=-1):
         sel_exercise = get_exercise(id)
     return render_template('workouts.html', workouts = workouts, workout_exercises=workout_exercises, sel_exercise=sel_exercise, current_user=current_user)
 
+@workout_views.route('/workout_info', methods =['GET'])
+@workout_views.route('/workout_info/<id>', methods =['GET'])
+@jwt_required()
+def get_test_page(id=-1):
+    workouts = get_all_workouts()
+    workout_exercises = get_workout_exercises()
+
+    sel_exercise = None
+
+    if id == -1:
+        pass
+    else:
+        sel_exercise = get_exercise(id)
+    return render_template('workout.html', workouts = workouts, workout_exercises=workout_exercises, sel_exercise=sel_exercise, current_user=current_user)
 
 @workout_views.route('/workouts', methods=['POST'])
 @jwt_required()

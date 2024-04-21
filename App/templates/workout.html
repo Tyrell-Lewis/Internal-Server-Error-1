@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Workout Planner App{% endblock %}
+{% block page %}Workout Planner App{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+        <table>
+          <thead>
+            
+            <tr>
+                <th>Exercise Name</th>
+                <th>Sets</th>
+                <th>Reps</th>
+            </tr>
+          </thead>
+
+          {%if current_user.workout%}
+
+            {%for workout in current_user.workout%}
+
+          
+          <tbody>
+            
+               {% if workout.sets_reps %}
+                      {%for link in workout.sets_reps%}
+                      <tr>
+              <td><b>Reps for the exercise: </b>{{link.reps}}</td>
+              <td><b>Sets for the exercise: </b>{{link.sets}}</td>
+              {%for exer in link.exercise%}
+                {%if exer.exercise_api_id == link.exercise_id%}
+                  <td><b>Exercise name: </b>{{exer.name}}</td>
+              {%endif%}
+          {%endfor%}
+        </tr>
+          {%endfor%}
+          {%endif%}
+
+              
+            
+                
+            
+          </tbody>
+        </table>
+        {%endfor%}
+      {%endif%}
+
+{% endblock %}
