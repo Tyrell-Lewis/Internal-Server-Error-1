@@ -12,6 +12,13 @@ def index_page():
     get_all_exercises_api(50,0)
     return render_template('index.html')
 
+
+@index_views.route('/home', methods=['GET'])
+def home_page():
+    return render_template('index.html')
+
+
+
 @index_views.route('/init', methods=['GET'])
 def init():
     db.drop_all()
