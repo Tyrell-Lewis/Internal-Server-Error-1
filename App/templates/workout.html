@@ -4,8 +4,22 @@
 
 {{ super() }}
 
+
+{% block styles %}
+
+  .btn-flat, .waves-effect{
+    padding: 0px 0px;
+  }
+
+{% endblock %}
+
+
 {% block content %}
 
+<div>
+  <a href="/workouts" class="waves-effect btn-flat"><i class="small material-icons">arrow_back</i></a>
+  <a href="/workouts" class="waves-effect btn-flat">Back</a>
+</div>
 
 
 {%if btn_click %}
