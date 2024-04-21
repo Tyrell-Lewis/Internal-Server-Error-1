@@ -53,8 +53,20 @@ def create_workout_action():
 def add_workout_exercise():
     exercise_id = request.form.get('exercise_id')
     workout_id = request.form.get('workout_id')
-    sets = request.form.get('sets')
-    reps = request.form.get('reps')
+
+    data = request.form
+    sets = data['sets']
+    reps = data['reps']
+
+    sets = int(sets)
+    reps = int(reps)
+
+    #sets = request.form.get('sets')
+    if sets < 0:
+        sets=1
+    #reps = request.form.get('reps')
+    if reps < 0:
+        reps=1
     add_exer_to_workout(workout_id, exercise_id, sets, reps)
     return redirect (url_for('workout_views.get_workout_page'))
 
@@ -96,6 +108,15 @@ def edit_workout_info_action(wid=None, eid=None):
     data = request.form
     sets = data['sets']
     reps = data['reps']
+
+    sets = int(sets)
+    reps = int(reps)
+
+    if sets < 0:
+        sets=1
+    
+    if reps < 0:
+        reps=1
 
     edit_workout_exercise(wid, eid, sets, reps)
 
