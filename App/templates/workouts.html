@@ -26,20 +26,31 @@
     </div>
   </form>
 
-  <h5>Your Workouts</h5>
-
   {%if sel_exercise %}
-  <form class="col s12" method="POST" action="/workouts/add">
-    <input type="hidden" name="exercise_id" value="{{sel_exercise.exercise_api_id}}">
-    <select name="workout_id">
-        {% for workout in current_user.workout %}
-        <option value="{{ workout.work_id }}">{{ workout.name }}</option>
-        {% endfor %}
-    </select>
-    <button class="btn waves-effect waves-light right purple" type="submit" name="action">Add exercise to workout</button>
-  </form>
+
+    <h5>Add Exercise</h5>
+
+    <form class="col s12" method="POST" action="/workouts/add">
+      <input type="hidden" name="exercise_id" value="{{sel_exercise.exercise_api_id}}">
+      
+      <div class="row">
+        <div class="col m3">
+          <select name="workout_id">
+            {% for workout in current_user.workout %}
+            <option value="{{ workout.work_id }}">{{ workout.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col m2">
+          <button class="btn waves-effect waves-light right purple" type="submit" name="action">Add exercise to workout</button>
+        </div>
+      </div>
+    </form>
 
   {%endif%}
+
+  <h5>Your Workouts</h5>
 
   {%if current_user.workout%}
 
@@ -48,12 +59,13 @@
         <div class="col s12 m6">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
-              <span class="card-title">Workout ID: {{workout.work_id}}</span>
-              <p><p>Workout name: {{workout.name}} </p>
-              <p>Workout description: {{workout.description}} </p></p>
-
+              <span class="card-title">{{workout.name}}</span>
+              <p>{{workout.description}}</p>
+              <p>{{workout.work_id}}</p>
             </div>
             <div class="card-action">
+              <a href="/workouts/info/{{workout.work_id}}" class="btn">Exercises</a>
+              <a href="/workouts/delete/{{workout.work_id}}" class="btn"><i class="material-icons">delete</i></a>
               <!--{% for testing in workout.sets_reps %}
                 {% if testing.exercise_id ==  workout.exercise_id%}
                   <p>Value of testing.exercise_id: {{testing.exercise_id}}</p>
@@ -63,37 +75,24 @@
                 {% endif %}
               {% endfor %}-->
               
-
-
-
-
-            
                   <!-- {% if workout.sets_reps %}
                       {%for link in workout.sets_reps%}
-
                       <p><b>Reps for the exercise: </b>{{link.reps}}</p>
                       <p><b>Sets for the exercise: </b>{{link.sets}}</p>
-
                         {%for exer in link.exercise%}
                             {%if exer.exercise_api_id == link.exercise_id%}
                                 <p><b>Exercise name: </b>{{exer.name}}</p>
                             {%endif%}
                         {%endfor%}
-                          
                       {%endfor%}
-                  
                   {% endif %} -->
-              
-              <a href="/workouts/info/{{workout.work_id}}" class="btn">click here</a>
-              <a href="/workouts/delete/{{workout.work_id}}" class="btn">delete</a>
-            
             </div>
           </div>
         </div>
       </div>
       {%endfor%}
     {%else%}
-        <p>User has no workouts yet</p>
+        <p>You have no workouts yet</p>
     {%endif%}
 
   <!--{%for workout_exercise_entry in test%}
