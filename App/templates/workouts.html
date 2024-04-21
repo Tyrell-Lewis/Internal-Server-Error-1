@@ -6,16 +6,15 @@
 
 {% block styles %}
 
-  h5 {
-    text-align: center;
-  }
+
 
 {% endblock %}
 
 
 {% block content %}
 
-  <h5 style="text-align: left;">Create Workout</h5>
+  <h5>Create Workout</h5>
+  <br>
 
   <form class="col s12" method="POST" action="/workouts">
     <div class="row">
@@ -71,7 +70,8 @@
 
       {%if sel_exercise %}
         
-        <h5>Add Exercise</h5>
+        <h5 style="text-align: right;">Add Exercise</h5>
+        <br>
 
         <form method="POST" action="/workouts/add" style="padding-left: 20px; padding-right: 20px;">
           <input type="hidden" name="exercise_id" value="{{sel_exercise.exercise_api_id}}">
