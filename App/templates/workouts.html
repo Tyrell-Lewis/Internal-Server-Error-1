@@ -34,6 +34,7 @@
     </div>
   </form>
 
+
   {%if current_user.workout%}
 
   <div class="row">
@@ -41,6 +42,45 @@
 
       <h5>Your Workouts</h5>
       <br>
+
+        {%if btn_click%}
+
+
+        {%for workout in current_user.workout%}
+          {%if sel_workout.work_id == workout.work_id%}
+          
+          <form method = "POST" action = "/workouts/edit/post/{{workout.work_id}}">
+          <div class="row" style="padding-left: 20px; padding-right: 20px;">
+            <div class="card blue-grey darken-1">
+              <div class="card-content white-text">
+                <span class="card-title"><div class="input-field col m3">
+                  <input placeholder="{{workout.name}}" value="{{workout.name}}" name="name" type="text">
+                  <label for="name">Name</label>
+                </div></span>
+                <p><div class="input-field col m7">
+                  <input placeholder="{{workout.description}}" value="{{workout.description}}" name="desc" type="text">
+                  <label for="desc">Description</label>
+                </div></p>
+                <p>{{workout.work_id}}</p>
+              </div>
+              <div class="card-action">
+                <a href="/workouts/info/{{workout.work_id}}" class="btn">Exercises</a>
+                <a href="/workouts/delete/{{workout.work_id}}" class="btn"><i class="material-icons">delete</i></a>
+                <button type="submit" class="btn-floating btn-large cyan pulse"><i class="material-icons">edit</i></button>
+              </div>
+            </div>
+          </div>
+          </form>
+          
+          {%endif%}
+
+        {%endfor%}
+      
+      
+
+      
+        {%else%}
+
 
       
         {%for workout in current_user.workout%}
@@ -55,11 +95,14 @@
               <div class="card-action">
                 <a href="/workouts/info/{{workout.work_id}}" class="btn">Exercises</a>
                 <a href="/workouts/delete/{{workout.work_id}}" class="btn"><i class="material-icons">delete</i></a>
+                <a href="/workouts/edit/{{workout.work_id}}" class=btn><i class="material-icons">edit</i></a>
               </div>
             </div>
           </div>
 
         {%endfor%}
+
+        {%endif%}
       
 
     </section>

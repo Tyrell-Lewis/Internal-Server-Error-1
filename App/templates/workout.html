@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% block title %}Workout Planner App{% endblock %}
-{% block page %}Workout Planner App{% endblock %}
+{% block title %} {{sel_workout.name}} {% endblock %}
+{% block page %} {{sel_workout.name}} {% endblock %}
 
 {{ super() }}
 
@@ -39,7 +39,7 @@
                     <td>{{exer.name}} </td>
                 {%endif%}
               {%endfor%}
-              <form method = "POST" action = "/workouts/edit/{{sel_workout.work_id}}/{{link.exercise_id}}">
+              <form method = "POST" action = "/workouts/info/edit/post/{{sel_workout.work_id}}/{{link.exercise_id}}">
               <td> <div class="row">
                 <div class="input-field col m6">
                   <input type="number" name="sets" value="{{link.sets}}">

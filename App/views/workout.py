@@ -11,7 +11,8 @@ from App.controllers import (get_all_workouts,
                              get_workout, 
                              delete_workout, 
                              delete_workout_exercise,
-                             edit_workout_exercise)
+                             edit_workout_exercise,
+                             edit_workouts)
 
 workout_views = Blueprint('workout_views', __name__, template_folder='../templates')
 
@@ -58,10 +59,40 @@ def add_workout_exercise():
     return redirect (url_for('workout_views.get_workout_page'))
 
 
-@workout_views.route('/workouts/edit', methods=['POST'])
-@workout_views.route('/workouts/edit/<wid>/<eid>', methods=['POST'])
+@workout_views.route('/workouts/edit/post', methods=['POST'])
+@workout_views.route('/workouts/edit/post/<wid>', methods=['POST'])
 @jwt_required()
-def edit_workout_action(wid=None, eid=None):
+def edit_workout_action(wid=None):
+    
+    edit_workouts(request.form.get('name'), request.form.get('desc'), wid)
+
+    #edit_workout_exercise(wid, eid, sets, reps)
+
+    sel_workout = None
+    if wid:
+        sel_workout = get_exercise(wid)
+
+    return render_template('workouts.html',  sel_workout=sel_workout, current_user=current_user)
+
+
+@workout_views.route('/workouts/edit', methods=['GET'])
+@workout_views.route('/workouts/edit/<wid>', methods=['GET'])
+@jwt_required()
+def edit_workout(wid=None):
+    btn_click=True
+    sel_workout = None
+
+    
+    print (wid)
+    
+    sel_workout = get_workout(wid)
+    return render_template('workouts.html',  sel_workout=sel_workout, current_user=current_user, btn_click=btn_click)
+
+
+@workout_views.route('/workouts/info/edit/post', methods=['POST'])
+@workout_views.route('/workouts/info/edit/post/<wid>/<eid>', methods=['POST'])
+@jwt_required()
+def edit_workout_info_action(wid=None, eid=None):
     data = request.form
     sets = data['sets']
     reps = data['reps']
@@ -78,7 +109,7 @@ def edit_workout_action(wid=None, eid=None):
 @workout_views.route('/workouts/info/edit', methods=['GET'])
 @workout_views.route('/workouts/info/edit/<wid>/<eid>', methods=['GET'])
 @jwt_required()
-def test(wid=None, eid=None):
+def edit_workout_info(wid=None, eid=None):
     btn_click=True
     sel_workout = None
 
@@ -95,8 +126,8 @@ def test(wid=None, eid=None):
 def delete_workout_action(id=None):
     if id:
         delete_workout(id)
-    # return redirect(url_for('workout_views.get_workout_page'))
-    return redirect(request.referrer)
+    return redirect(url_for('workout_views.get_workout_page'))
+    #return redirect(request.referrer)
 
 
 @workout_views.route('/workouts/info/delete', methods=['GET'])
@@ -106,6 +137,9 @@ def delete_workout_exercise_action(wid=None, eid=None):
     if wid:
         if eid:
             delete_workout_exercise(wid, eid)
-    # return redirect(url_for('workout_views.get_workout_page'))
-    return redirect(request.referrer)
+    sel_workout = None
+    if wid:
+        sel_workout = get_workout(wid)
+
+    return render_template('workout.html',  sel_workout=sel_workout, current_user=current_user)
 

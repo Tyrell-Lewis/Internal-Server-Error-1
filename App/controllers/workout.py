@@ -108,4 +108,17 @@ def edit_workout_exercise(work_id, exer_id, sets, reps):
     else:
         return None
 
+def edit_workouts(name, desc, work_id):
+    
+    existing_workout = workout.query.get(work_id)
+    if existing_workout:
+        
+        
+        existing_workout.name = name
+        existing_workout.description = desc
+        db.session.add(existing_workout)
+        db.session.commit()
+    else:
+        return None
+
 
