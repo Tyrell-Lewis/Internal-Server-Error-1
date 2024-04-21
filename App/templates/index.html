@@ -1,11 +1,36 @@
 {% extends "layout.html" %}
-{% block title %}Workout Planner App{% endblock %}
-{% block page %}Workout Planner App{% endblock %}
+{% block title %}Home{% endblock %}
+{% block page %}Home{% endblock %}
 
 {{ super() }}
 
+    {% block styles %}
+        .container {
+            padding: 0px 0px 0px 0px;
+            }
+    {% endblock %}
+
 {% block content %}
+<div>
+    
 
+    <!-- Carousel -->
+    <div class="carousel" style="width: 100%;">
+        <a class="carousel-item" href="#one!" style="width: 50%; "><img src="https://img.freepik.com/free-photo/colorful-design-with-spiral-design_188544-9588.jpg?size=626&ext=jpg&ga=GA1.1.553209589.1713484800&semt=sph"></a>
+        <a class="carousel-item" href="#two!" style="width: 50%; "><img src="https://t3.ftcdn.net/jpg/06/51/49/90/360_F_651499051_tQQimfoC1v8z8cD7m0mQjXElxJrMFppt.jpg"></a>
+        <a class="carousel-item" href="#three!" style="width: 50%; "><img src="https://via.placeholder.com/800x400"></a>
+        <a class="carousel-item" href="#four!" style="width: 50%; "><img src="https://via.placeholder.com/800x400"></a>
+        <a class="carousel-item" href="#five!" style="width: 50%; "><img src="https://via.placeholder.com/800x400"></a>
+    </div>
+</div>
 
+{% endblock %}
 
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.carousel');
+            var instances = M.Carousel.init(elems, {});
+        });
+    </script>
 {% endblock %}
