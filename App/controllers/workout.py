@@ -86,6 +86,7 @@ def delete_workout_exercise(work_id, exer_id):
         exercise_instance = workout_exercise.query.filter_by(exercise_id=exer_id).first()
         if exercise_instance:
             exercise_instance.exercise.remove(ex)
+            db.session.delete(exercise_instance)
             db.session.commit()
         else:
             return None

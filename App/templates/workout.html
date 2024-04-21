@@ -19,6 +19,7 @@
                     <th><b>Exercise Name</b></th>
                     <th><b>Sets</b></th>
                     <th><b>Reps</b></th>
+                    <th></th>
                 </tr>
               </thead>
               
@@ -34,6 +35,7 @@
                       
                       <td>{{link.sets}}</td>
                       <td>{{link.reps}}</td>
+                      <td><a href="/workouts/info/delete/{{sel_workout.work_id}}/{{link.exercise_id}}"><i class="material-icons">delete</i></a></td>
                     </tr>
                   {%endfor%}
                 {%endif%}
