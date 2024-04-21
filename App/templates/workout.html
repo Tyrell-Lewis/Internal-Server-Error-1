@@ -5,9 +5,78 @@
 {{ super() }}
 
 {% block content %}
+
+
+
+{%if btn_click %}
+
+
+{%if current_user.workout%}
+
+{%for workout in current_user.workout%}
+  {%if sel_workout.work_id == workout.work_id%}
+    
+      
+    <table class="highlight">
+      <thead>
+        <tr>
+            <th><b>Exercise Name</b></th>
+            <th><b>Sets</b></th>
+            <th><b>Reps</b></th>
+            <th></th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        {% if workout.sets_reps %}
+          {%for link in workout.sets_reps%}
+
+            {%if sel_exercise.exercise_api_id == link.exercise_id%}
+          
+            <tr>
+              {%for exer in link.exercise%}
+                {%if exer.exercise_api_id == link.exercise_id%}
+                    <td>{{exer.name}} </td>
+                {%endif%}
+              {%endfor%}
+              <form method = "POST" action = "/workouts/edit/{{sel_workout.work_id}}/{{link.exercise_id}}">
+              <td> <div class="row">
+                <div class="input-field col m6">
+                  <input type="number" name="sets" value="{{link.sets}}">
+                  <label for="sets">Sets</label>
+                </div></td>
+              <td><div class="input-field col m6">
+                <input type="number" name="reps" value="{{link.reps}}">
+                <label for="reps">Reps</label>
+              </div></td>
+              
+              <td><a href="/workouts/info/delete/{{sel_workout.work_id}}/{{link.exercise_id}}"><i class="material-icons">delete</i></a></td>
+              <td><button type="submit" class="btn-floating btn-large cyan pulse"><i class="material-icons">edit</i></button></td>
+            </form>
+              
+            </tr>
+            {%endif%}
+          {%endfor%}
+        {%endif%}
+      
+      </tbody>
+    </table>
   
-  <section class="row">
-    <section class="col s12 m6">
+  {%endif%}
+{%endfor%}
+{%endif%}
+
+
+
+
+
+
+
+
+
+{%else%}
+  
+    
       {%if current_user.workout%}
 
         {%for workout in current_user.workout%}
@@ -36,6 +105,7 @@
                       <td>{{link.sets}}</td>
                       <td>{{link.reps}}</td>
                       <td><a href="/workouts/info/delete/{{sel_workout.work_id}}/{{link.exercise_id}}"><i class="material-icons">delete</i></a></td>
+                      <td><a href="/workouts/info/edit/{{sel_workout.work_id}}/{{link.exercise_id}}"><i class="material-icons">edit</i></a></td>
                     </tr>
                   {%endfor%}
                 {%endif%}
@@ -46,13 +116,8 @@
           {%endif%}
         {%endfor%}
       {%endif%}
-    </section>
+    
 
-    <section class="col s12 m6">
-      <ul>
-       
-      </ul>
-    </section>
-  </section>
+{%endif%}
 
 {% endblock %}

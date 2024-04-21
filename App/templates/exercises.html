@@ -22,7 +22,7 @@
       </form>-->
       <form method = "GET" action = "/exercises/{{category.cat_id}}">
         <!-- Dropdown Trigger -->
-        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Filter</a>
+        <a class='dropdown-trigger' href='#' data-target='dropdown1'><i class="medium material-icons">sort</i></a>
         <!-- Dropdown Structure -->
         <ul id='dropdown1' class='dropdown-content'>
           {% for category in category %}

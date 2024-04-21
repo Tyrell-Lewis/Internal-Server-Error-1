@@ -93,3 +93,19 @@ def delete_workout_exercise(work_id, exer_id):
     else:
         return None
 
+def edit_workout_exercise(work_id, exer_id, sets, reps):
+    ex = exercise.query.filter_by(exercise_api_id=exer_id).first()
+    existing_workout = workout.query.get(work_id)
+    if existing_workout:
+        exercise_instance = workout_exercise.query.filter_by(exercise_id=exer_id).first()
+        if exercise_instance:
+            exercise_instance.sets = sets
+            exercise_instance.reps = reps
+            db.session.add(exercise_instance)
+            db.session.commit()
+        else:
+            return None
+    else:
+        return None
+
+
