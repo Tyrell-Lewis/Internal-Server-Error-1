@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
-from flask_jwt_extended import jwt_required, current_user as jwt_current_user
+from flask_jwt_extended import jwt_required, current_user as jwt_current_user, set_access_cookies
 
 from.index import index_views
 
@@ -8,7 +8,8 @@ from App.controllers import (
     get_all_users,
     get_all_users_json,
     get_user_by_username, 
-    jwt_required
+    jwt_required,
+    login
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -38,7 +39,10 @@ def create_user_action():
         return redirect(url_for('user_views.get_signup_page'))
     flash(f"User {data['username']} created!")
     create_user(data['username'], data['password'])
-    return redirect(url_for('user_views.get_user_page'))
+    token = login(data['username'], data['password'])
+    response = redirect(url_for('workout_views.get_workout_page'))
+    set_access_cookies(response, token)
+    return response
 
 
 '''
