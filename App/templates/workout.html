@@ -5,58 +5,52 @@
 {{ super() }}
 
 {% block content %}
-<section class="row">
-<section class="col s12 m6">
-  {%if current_user.workout%}
-              
-            {%for workout in current_user.workout%}
-              {%if sel_workout.work_id == workout.work_id%}
-              
-        <table class="striped highlight">
-          <thead>
-            
-            <tr>
-                <th><b>Exercise Name</b></th>
-                <th><b>Sets</b></th>
-                <th><b>Reps</b></th>
-            </tr>
-          </thead>
+  
+  <section class="row">
+    <section class="col s12 m6">
+      {%if current_user.workout%}
 
-          
-          
-          <tbody>
-            
-               {% if workout.sets_reps %}
-                      {%for link in workout.sets_reps%}
-            <tr>
-              {%for exer in link.exercise%}
-                  {%if exer.exercise_api_id == link.exercise_id%}
-                      <td>{{exer.name}}</td>
-                  {%endif%}
-              {%endfor%}
+        {%for workout in current_user.workout%}
+          {%if sel_workout.work_id == workout.work_id%}
+              
+            <table class="striped highlight">
+              <thead>
+                <tr>
+                    <th><b>Exercise Name</b></th>
+                    <th><b>Sets</b></th>
+                    <th><b>Reps</b></th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                {% if workout.sets_reps %}
+                  {%for link in workout.sets_reps%}
+                    <tr>
+                      {%for exer in link.exercise%}
+                        {%if exer.exercise_api_id == link.exercise_id%}
+                            <td>{{exer.name}}</td>
+                        {%endif%}
+                      {%endfor%}
+                      
                       <td>{{link.sets}}</td>
                       <td>{{link.reps}}</td>
-            </tr>
-          {%endfor%}
-          {%endif%}
-
+                    </tr>
+                  {%endfor%}
+                {%endif%}
               
-            
-                
-            
-          </tbody>
-        </table>
+              </tbody>
+            </table>
           
           {%endif%}
         {%endfor%}
       {%endif%}
-  </section>
+    </section>
 
-  <section class="col s12 m6">
-    <ul  >
+    <section class="col s12 m6">
+      <ul>
        
-    </ul>
+      </ul>
+    </section>
   </section>
-</section>
 
 {% endblock %}

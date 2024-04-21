@@ -4,21 +4,21 @@ from App.models import workout_exercise
 from App.models import User
 from App.database import db
 
+
 def get_all_workouts():
     return workout.query.all()
 
+
 def get_workout(id):
     return workout.query.filter_by(work_id=id).first()
+
 
 def get_workout_exercises():
     return workout_exercise.query.all()
     #return db.session.query(workout_exercise).filter_by(work_id=1).all()
 
 
-
 def create_workout(name, description, exercise_api_id, user_id):
-   
-
     new_workout= workout(name=name, description=description, exercise_id=exercise_api_id) 
 
     if new_workout:
@@ -49,28 +49,17 @@ def create_workout(name, description, exercise_api_id, user_id):
 
 
 def add_exer_to_workout(work_id, exercise_api_id, sets, reps):
-    
-
-
     existing_workout= workout.query.get(work_id)
     #existing_workout_exercise = workout_exercise.query.get()
 
     if existing_workout:
-
         exercise_instance = exercise.query.filter_by(exercise_api_id=exercise_api_id).first()
 
-       
-
         if exercise_instance:
-            
             new_workout_exercise = workout_exercise(sets=sets, reps=reps, exercise_id=exercise_instance.exercise_api_id)
-            
             new_workout_exercise.exercise.append(exercise_instance)
-
             db.session.add(new_workout_exercise)
-            
             existing_workout.sets_reps.append(new_workout_exercise)
-
             db.session.add(existing_workout)
             db.session.commit()
             return existing_workout
@@ -81,4 +70,9 @@ def add_exer_to_workout(work_id, exercise_api_id, sets, reps):
         None
 
 
+def delete_workout(work_id):
+    workout = get_workout(work_id)
+    if workout:
+        db.session.delete(workout)
+        db.session.commit()
 
