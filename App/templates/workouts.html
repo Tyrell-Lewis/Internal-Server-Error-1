@@ -6,23 +6,27 @@
 
 {% block content %}
 
+  <h5>Create Workout</h5>
 
-<form class="col s12" method="POST" action="/workouts">
-        
+  <form class="col s12" method="POST" action="/workouts">
     <div class="row">
-      <div class="input-field col s6">
-        <input placeholder="workout name" name="exer_id" type="text">
-        <label for="exer_id"></label>
+      <div class="input-field col m3">
+        <input placeholder="Workout Name" name="name" type="text">
+        <label for="name"></label>
+      </div>
+
+      <div class="input-field col m7">
+        <input placeholder="Workout Description" name="desc" type="text">
+        <label for="desc"></label>
+      </div>
+
+      <div class="input-field col m2">
+        <button class="btn waves-effect waves-light right purple" type="submit" name="action">Create</button>
       </div>
     </div>
-  
-    <div class="row">
-      <div class="input-field col s12">
-        <button class="btn waves-effect waves-light right purple" type="submit" name="action">Add to Workout</button>
-      </div>
-    </div> 
-
   </form>
+
+  <h5>Your Workouts</h5>
 
   {%if sel_exercise %}
   <form class="col s12" method="POST" action="/workouts/add">
@@ -33,7 +37,7 @@
         {% endfor %}
     </select>
     <button class="btn waves-effect waves-light right purple" type="submit" name="action">Add exercise to workout</button>
-</form>
+  </form>
 
   {%endif%}
 

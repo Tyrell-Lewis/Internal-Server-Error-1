@@ -42,9 +42,7 @@ def get_workout_info_page(id=None):
 @workout_views.route('/workouts', methods=['POST'])
 @jwt_required()
 def create_workout_action():
-    create_workout(request.form.get('exer_id'), "The workout is working", 81, current_user.id)#this is just a temp to test that workout model is working
-    # add_exer_to_workout(1, 74, 4, 15)#use forms to get data and make it dynamic
-    # add_exer_to_workout(1, 81, 500, 75)
+    create_workout(request.form.get('name'), request.form.get('desc'), 0, current_user.id)
     return redirect (url_for('workout_views.get_workout_page'))
 
 
