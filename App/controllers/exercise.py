@@ -34,6 +34,20 @@ def create_exercise(exercise_api_id, name, description):
     db.session.commit()
     return new_exercise
 
+def get_exercises_from_database(page):
+    # Query exercises from the local database model
+    
+    exercises = exercise.query.paginate(page=page, per_page=20)
+    return exercises
+
+def calculate_total_pages(limit):
+    # Get total number of exercises in the database
+    total_exercises = exercise.query.count()
+
+    # Calculate total pages based on the total number of exercises and the limit per page
+    total_pages = (total_exercises + limit - 1) // limit
+    return total_pages
+
 def get_all_exercises_api(limit, start_point):
     url = f'https://wger.de/api/v2/exerciseinfo/?limit={limit}&offset={start_point}'
     #the limit=5 means it only renders the 5 at a time
@@ -47,12 +61,15 @@ def get_all_exercises_api(limit, start_point):
     
 
     if response.status_code == 200:
+        
         exercise_data = response.json().get('results', [])
+        total_exercises = response.json().get('count', 0)
+        total_pages = (total_exercises + limit - 1) // limit
 
 
 
         for exercise_d in exercise_data:
-            if exercise_d.get('language', {}).get('short_name') == 'en' or exercise_d.get('language', {}).get('id') == 2 or exercise_d.get('language', {}).get('full_name') == 'English':
+            #if exercise_d.get('language', {}).get('short_name') == 'en' or exercise_d.get('language', {}).get('id') == 2 or exercise_d.get('language', {}).get('full_name') == 'English':
                 name = exercise_d.get('name', '')
                 description = exercise_d.get('description', '')
                 
@@ -119,9 +136,9 @@ def get_all_exercises_api(limit, start_point):
 
         
         
-        return get_all_exercises()
+        return exercise_data, total_pages
     else:
-        return None
+        return [], 0
 
 def getCategoryExercises(category_id):
     return exercise.query.filter_by(category_id = category_id).all()

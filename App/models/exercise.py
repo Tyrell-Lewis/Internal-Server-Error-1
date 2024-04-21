@@ -51,3 +51,13 @@ class exercise(db.Model):
 
     def __repr__(self):
         return ("exercise: {{self.name}}")
+
+    def get_exercises_for_page(cls, page_number, limit):
+        start_point = (page_number - 1) * limit
+        return cls.query.offset(start_point).limit(limit).all()
+
+    def search_exercises(self, page):
+        matching_exercises = exercise.query
+        return matching_exercises.paginate(page=page, per_page=20)
+
+  

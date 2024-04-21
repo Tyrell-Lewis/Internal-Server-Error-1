@@ -9,7 +9,6 @@ def index_page():
     get_all_categories_api()
     get_all_muscles_api()
     get_all_equipment_api()
-    get_all_exercises_api(650,0)
     return render_template('index.html')
 
 

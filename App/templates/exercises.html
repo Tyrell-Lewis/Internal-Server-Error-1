@@ -20,25 +20,42 @@
           <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
         </div>
       </form>-->
-      <form method = "GET" action = "/exercises/{{category.cat_id}}">
-        <!-- Dropdown Trigger -->
+
+
+      <form method="GET" action="{{ url_for('exercise_views.get_exercise_page') }}">
+        <input type="hidden" name="page" value="{{ page }}">
         <a class='dropdown-trigger' href='#' data-target='dropdown1'><i class="medium material-icons">sort</i></a>
-        <!-- Dropdown Structure -->
         <ul id='dropdown1' class='dropdown-content'>
-          {% for category in category %}
-            <li><a href = "/exercises/{{category.cat_id}}">{{category.name}}</a></li>
-          {% endfor %}
-            <li><a href= "/exercises">Reset</a></li>
+            {% for cat in category %}
+                <li><a href="{{ url_for('exercise_views.get_exercise_page', page=page, cat_id=cat.cat_id) }}">{{ cat.name }}</a></li>
+            {% endfor %}
+            <li><a href="{{ url_for('exercise_views.get_exercise_page', page=page) }}">No Filter</a></li>
         </ul>
-      </form>
+    </form>
+
+
+    {%if exercise_data%}
+    <p>has</p>
+    {%else%}
+    <p>has not</p>
+    {%endif%}
+
+      
+      
     </div>
     <div class = "grid-container">
       <div class = "row">
-        {%for exercise in exercises%}
+    {%for exer in exercises%}
+    
+        {%for exercise in exercise_data%}
+          {%if exercise.exercise_api_id == exer.id%}
           <div class = "col s6">
             <div class="card">
               <div class="card-content">
+                
+                
                 <span class="card-title activator grey-text text-darken-4"><b>{{exercise.name}}</b><i class="material-icons right">more_vert</i></span>
+                
                 <p><b>Category: </b>{{exercise.category.name}}</p>
                 {% if exercise.muscle %}
                   <p><b>Primary Muscle: </b>{%for muscle in exercise.muscle%}{{muscle.name}}{%endfor%}</p>
@@ -49,17 +66,10 @@
                 {% if exercise.equipment %}
                   <p><b>Equipment: </b>{%for equip in exercise.equipment %}{{equip.name}} {%endfor%}</p>
                 {% endif %}
-
-                {% if is_authenticated %}
-                  <form class = "col s12 offset-s10" method = "GET" action="/workouts/{{ exercise.exercise_api_id }}">
-                    <input type="hidden" name="exercise_id" value="{{ exercise.exercise_api_id }}">
-                    <button class="btn-floating btn-large cyan pulse" type="submit"><i class="material-icons">add</i></button>
-                  </form>
-                {% else %}
-                  <div class="col s12 offset-s10">
-                    <button class="btn-floating btn-large cyan pulse"><a href="/login"><i class="material-icons">add</i></a></button>
-                  </div>
-                {% endif %}
+                <form class = "col s12 offset-s10" method = "GET" action="/workouts/{{ exercise.exercise_api_id }}">
+                  <input type="hidden" name="exercise_id" value="{{ exercise.exercise_api_id }}">
+                  <button class="btn-floating btn-large cyan pulse" type="submit"><i class="material-icons">add</i></button>
+                </form>
 
               </div>
               
@@ -69,8 +79,51 @@
               </div>
             </div>
           </div>
+          {%endif%}
         {%endfor%}
-      </div>  
+      
+    {%endfor%}
+  </div>  
+</div>
+
+    <div class="row">
+
+      
+      
+        <ul class="pagination col s12 center">
+
+          {% if page == 1 %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#">Previous</a>
+            </li>
+          {%else%}
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('exercise_views.get_exercise_page', page=page-1) }}">Previous</a>
+            </li>
+          {%endif%}
+            <!-- <li class="waves-effect">
+              <a class="page-link" href="{{ url_for('exercise_views.get_exercise_page', page=page-1) }}"><i class="material-icons">chevron_left</i></a>
+            </li> -->
+            {% for page_num in range(1, total_pages + 1) %}
+            <li class="page-item {% if page_num == page %}active{% endif %}">
+                <a class="page-link" href="{{ url_for('exercise_views.get_exercise_page', page=page_num) }}">{{ page_num }}</a>
+            </li>
+            {% endfor %}
+
+            {% if page == total_pages %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#">Next</a>
+            </li>
+            
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('exercise_views.get_exercise_page', page=page+1) }}">Next</a>
+            </li>
+            {%endif%}
+        </ul>
+     
+      
+      
     </div>
 
 {% endblock%}
