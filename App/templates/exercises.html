@@ -5,8 +5,8 @@
 
 {% block styles %}
 
-  .card{
-    height: 300px;;
+  .card {
+    height: 300px;
   }
 
 {% endblock %}
@@ -42,7 +42,7 @@
               <div class="card-content">
                 
                 
-                <span class="card-title activator grey-text text-darken-4"><b>{{exercise.name}}</b><i class="material-icons right">more_vert</i></span>
+                <span class="card-title activator text-darken-4"><b>{{exercise.name}}</b><i class="material-icons right">more_vert</i></span>
                 
                 <p><b>Category: </b>{{exercise.category.name}}</p>
                 {% if exercise.muscle %}
@@ -68,8 +68,8 @@
 
               </div>
               
-              <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4"><b>{{exercise.name}}</b><i class="material-icons right">close</i></span>
+              <div class="card-reveal" style="background-color: #7a7a7a;">
+                <span class="card-title text-darken-4"><b>{{exercise.name}}</b><i class="material-icons right">close</i></span>
                 <p>{{exercise.description}}</p>
               </div>
             </div>
