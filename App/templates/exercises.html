@@ -46,18 +46,19 @@
                 
                 <p><b>Category: </b>{{exercise.category.name}}</p>
                 {% if exercise.muscle %}
-                  <p><b>Primary Muscles: </b>{%for muscle in exercise.muscle%}<p>{{muscle.name}}</p>{%endfor%}</p>
+                  <p><b>Primary Muscles: </b>{%for muscle in exercise.muscle%}{{muscle.name}}  {%endfor%}</p>
                 {% endif %}
                 {% if exercise.muscle_2 %}
-                  <p><b>Secondary Muscles: </b>{%for muscle in exercise.muscle_2%}<p>{{muscle.name}}</p>{%endfor%}</p>
+                  <p><b>Secondary Muscles: </b>{%for muscle in exercise.muscle_2%}{{muscle.name}}  {%endfor%}</p>
                 {% endif %}
                 {% if exercise.equipment %}
-                  <p><b>Equipment: </b>{%for equip in exercise.equipment %}<p>{{equip.name}}</p>{%endfor%}</p>
+                  <p><b>Equipment: </b>{%for equip in exercise.equipment %}{{equip.name}}  {%endfor%}</p>
                 {% endif %}
-                <form class = "col s12 offset-s10" method = "GET" action="/workouts/{{ exercise.exercise_api_id }}">
-                  <input type="hidden" name="exercise_id" value="{{ exercise.exercise_api_id }}">
-                  <button class="btn-floating btn-large cyan pulse" type="submit"><i class="material-icons">add</i></button>
-                </form>
+                
+                  <a href="/workouts/{{ exercise.exercise_api_id }}" class="btn-floating btn-large cyan pulse right-bottom" type="submit" style="position: absolute;
+                  bottom: 12px;
+                  right: 12px;"><i class="material-icons">add</i></a>
+                
 
               </div>
               
