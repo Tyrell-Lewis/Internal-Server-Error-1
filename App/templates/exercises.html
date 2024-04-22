@@ -55,9 +55,15 @@
                   <p><b>Equipment: </b>{%for equip in exercise.equipment %}{{equip.name}}  {%endfor%}</p>
                 {% endif %}
                 
+                {% if is_authenticated %}
                   <a href="/workouts/{{ exercise.exercise_api_id }}" class="btn-floating btn-large cyan pulse right-bottom" type="submit" style="position: absolute;
                   bottom: 12px;
                   right: 12px;"><i class="material-icons">add</i></a>
+                {% else %}
+                    <a href="/login" class="btn-floating btn-large cyan pulse right-bottom" style="position: absolute;
+                    bottom: 12px;
+                    right: 12px;"><i class="material-icons">add</i></a>
+                {% endif %}
                 
 
               </div>
