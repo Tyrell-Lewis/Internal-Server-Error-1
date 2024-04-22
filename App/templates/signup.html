@@ -7,7 +7,7 @@
 {% block styles %}
 
     .container{
-        padding: 0px 300px 0px 300px;
+        padding: 0px 100px 0px 100px;
     }
 
 {% endblock %}
@@ -15,11 +15,11 @@
 {% block content %}
     
     <br><br>
-
+<!-- 
     <div class="col s12 m7">
         <div class="card horizontal">
             <div class="card-stacked">
-                <form method="POST" action="/signup" style="align-items: center;"">
+                <form method="POST" action="/signup" style="align-items: center;">
                     <div class="card-content">
                         <div class="input-field">
                             <input placeholder="Username" name="username" type="text" class="validate" required>
@@ -43,6 +43,67 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
+
+<div class="row">
+    <form class="col s12" method="POST" action="/signup">
+        <div class="input-field col s6">
+            <i class="material-icons prefix">edit</i>
+            <input placeholder="Username" name="username" type="text" class="validate" required>
+            <label for="name">Username</label>
+          </div>          
+      <div class="input-field col s6">
+        <i class="material-icons prefix">account_circle</i>
+        <input placeholder="password" name="password" type="password" class="validate" required>
+        <label for="password">Password</label>
+      </div>
+      <div class="input-field col s6">
+        <i class="material-icons prefix">map</i>
+        <input placeholder="country" name="country"  type="text">
+        <label for="country">Country</label>
+      </div>
+      <div class="input-field col s6">
+        <i class="material-icons prefix">map</i>
+        <input placeholder="gym" name="gym"  type="text">
+        <label for="gym">Gym</label>
+      </div>
+      
+      <div class="input-field col s6">
+        <i class="material-icons prefix">watch</i>
+        <input type="number" name="weight" value="1">
+        <label for="sets">weight</label>
+      </div>
+
+      <div class="input-field col s6">
+        <i class="material-icons prefix">watch</i>
+        <input type="number" name="height" value="1">
+        <label for="height">height</label>
+      </div>
+
+      <div class="input-field col s12">
+      <p>
+        <label>
+          <input name="gender" type="radio" value="Male">
+          <span>Male</span>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input name="gender" type="radio" value="Female">
+          <span>Female</span>
+        </label>
+      </p>
+      </div>
+
+      <button class="btn waves-effect waves-light" type="submit" >Submit
+        <i class="material-icons right">send</i>
+      </button>
+
+        <div>
+            <p style="text-align: center;">Already a member? <a href="/login">Login</a></p>
+        </div>
+
+    </form>
+</div>
 
 {% endblock %}

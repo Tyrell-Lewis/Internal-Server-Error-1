@@ -20,9 +20,10 @@ Page/Action Routes
 '''  
 
 @user_views.route('/users', methods=['GET'])
+@jwt_required()
 def get_user_page():
     users = get_all_users()
-    return render_template('users.html', users=users)
+    return render_template('users.html', users=users, jwt_current_user=jwt_current_user)
 
 
 @user_views.route('/signup', methods=['GET'])
@@ -38,7 +39,7 @@ def create_user_action():
         flash(f"User {data['username']} already exists!")
         return redirect(url_for('user_views.get_signup_page'))
     flash(f"User {data['username']} created!")
-    create_user(data['username'], data['password'])
+    create_user(data['username'], data['password'], data['country'], data['gender'], data['gym'], data['height'], data['weight'])
     token = login(data['username'], data['password'])
     response = redirect(url_for('workout_views.get_workout_page'))
     set_access_cookies(response, token)

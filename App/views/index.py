@@ -23,7 +23,7 @@ def init():
     db.drop_all()
     db.create_all()
 
-    create_user('bob', 'bobpass')
+    create_user('bob', 'bobpass', 'Trinidad', 'Male', 'CLX', 180, 157.6)
     return jsonify(message='db initialized!')
 
 @index_views.route('/health', methods=['GET'])

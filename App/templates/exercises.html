@@ -14,12 +14,7 @@
 {% block content %}
 
     <div class="row">
-      <!--<form class="col s12" method="POST" action="/exercises">
-        <div class = "input-field">
-          <input placeholder="Search..." name = "exercise_name" type = "text">
-          <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
-        </div>
-      </form>-->
+      
 
 
       <form method="GET" action="{{ url_for('exercise_views.get_exercise_page') }}">
@@ -34,13 +29,6 @@
     </form>
 
 
-    {%if exercise_data%}
-    <p>has</p>
-    {%else%}
-    <p>has not</p>
-    {%endif%}
-
-      
       
     </div>
     <div class = "grid-container">
@@ -58,13 +46,13 @@
                 
                 <p><b>Category: </b>{{exercise.category.name}}</p>
                 {% if exercise.muscle %}
-                  <p><b>Primary Muscle: </b>{%for muscle in exercise.muscle%}{{muscle.name}}{%endfor%}</p>
+                  <p><b>Primary Muscles: </b>{%for muscle in exercise.muscle%}<p>{{muscle.name}}</p>{%endfor%}</p>
                 {% endif %}
                 {% if exercise.muscle_2 %}
-                  <p><b>Secondary Muscle: </b>{%for muscle in exercise.muscle_2%}{{muscle.name}} {%endfor%}</p>
+                  <p><b>Secondary Muscles: </b>{%for muscle in exercise.muscle_2%}<p>{{muscle.name}}</p>{%endfor%}</p>
                 {% endif %}
                 {% if exercise.equipment %}
-                  <p><b>Equipment: </b>{%for equip in exercise.equipment %}{{equip.name}} {%endfor%}</p>
+                  <p><b>Equipment: </b>{%for equip in exercise.equipment %}<p>{{equip.name}}</p>{%endfor%}</p>
                 {% endif %}
                 <form class = "col s12 offset-s10" method = "GET" action="/workouts/{{ exercise.exercise_api_id }}">
                   <input type="hidden" name="exercise_id" value="{{ exercise.exercise_api_id }}">

@@ -12,14 +12,25 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username =  db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String(120), nullable=False)
+    country = db.Column(db.String(120), nullable=True)
+    gender = db.Column(db.String(120), nullable=True)
+    gym = db.Column(db.String(120), nullable=True)
+    height = db.Column(db.Integer, nullable=True)
+    weight = db.Column(db.Float, nullable=True)
+
     
 
 
     workout = db.relationship('workout', secondary=user_workout, backref=db.backref('users', lazy='dynamic'))
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, country, gender, gym, height, weight):
         self.username = username
         self.set_password(password)
+        self.country = country
+        self.gender = gender
+        self.gym = gym
+        self.height = height
+        self.weight = weight
 
     def get_json(self):
         return{
