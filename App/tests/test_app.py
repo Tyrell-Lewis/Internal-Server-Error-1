@@ -22,7 +22,7 @@ LOGGER = logging.getLogger(__name__)
 class UserUnitTests(unittest.TestCase):
 
     def test_new_user(self):
-        user = User("bob", "bobpass")
+        user = User('bob', 'bobpass', 'Trinidad', 'Male', 'CLX', 180, 157.6)
         assert user.username == "bob"
 
     # pure function no side effects or integrations called
@@ -57,13 +57,13 @@ def empty_db():
 
 
 def test_authenticate():
-    user = create_user("bob", "bobpass")
+    user = create_user('bob', 'bobpass', 'Trinidad', 'Male', 'CLX', 180, 157.6)
     assert login("bob", "bobpass") != None
 
 class UsersIntegrationTests(unittest.TestCase):
 
     def test_create_user(self):
-        user = create_user("rick", "bobpass")
+        user = create_user("rick", "bobpass", 'Trinidad', 'Male', 'CLX', 180, 157.6)
         assert user.username == "rick"
 
     def test_get_all_users_json(self):
