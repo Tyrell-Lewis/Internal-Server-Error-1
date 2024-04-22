@@ -4,11 +4,11 @@
 
 {{ super() }}
 
-    {% block styles %}
-        .container {
-            padding: 0px 0px 0px 0px;
-            }
-    {% endblock %}
+{% block styles %}
+    .container {
+        padding: 0px 50px 0px 50px;
+    }
+{% endblock %}
 
 {% block content %}
 
@@ -26,9 +26,13 @@
         <a class="carousel-item" href="#five!" style="width: 50%; height:70% "><img src="https://images.unsplash.com/photo-1620188526357-ff08e03da266?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGd5bSUyMGVxdWlwbWVudHxlbnwwfHwwfHx8MA%3D%3D"></a>
     </div>
 
+    <br>
+
     <div class="center">
         <h5>Get ready to take your fitness journey to the next level with our comprehensive workout resources. Whether you're a seasoned gym-goer or just starting out, we've got everything you need to achieve your fitness goals.</h5>
     </div>
+
+    <br>
 
     <div class="container">
         <p>Explore Our Features:</p>
@@ -41,10 +45,14 @@
         </ul>
     </div>
 
+    <br>
+
     <div class="center">
         <p>Start Your Fitness Journey Today!</p>
         <p>Ready to get started? Sign up now and unlock a world of fitness possibilities. Whether you're aiming to build muscle, lose weight, or improve your overall health, we're here to help you succeed.</p>
     </div>
+
+    <br><br><br>
 
 
 {% endblock %}
